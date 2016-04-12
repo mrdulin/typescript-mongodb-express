@@ -63,6 +63,12 @@ var UserController = (function () {
     }
 
     function renderDeleteUser(req, res, next) {
+        res.render('user_delete_form', {
+            title: 'Delete account',
+            username: req.cookies.user.name,
+            _id: req.cookies.user._id,
+            email: req.cookies.user.email
+        });
     }
 
     function renderLogin(req, res, next) {
@@ -82,9 +88,9 @@ var UserController = (function () {
                     console.log('err: ' + err);
                     if (err.code === 11000) {
                         res.redirect('/user/new?exists=true');
-                    } else {
+                } else {
                         res.redirect('/?error=true');
-                    }
+                }
                 } else {
                     console.log('user is: ' + user);
                     res.cookie('user', user);
@@ -106,10 +112,10 @@ var UserController = (function () {
                     user.name = req.body.username;
                     user.email = req.body.email;
                     user.modifiedOn = Date.now();
-                    user.save(function (err, user) {
+                    user.save(function (err, userSaved) {
                         if (!err) {
                             console.log('User updated: ' + req.body.username);
-                            res.cookie('user', user);
+                            res.cookie('user', userSaved);
                             res.redirect('/user');
                         }
                     });
@@ -119,6 +125,24 @@ var UserController = (function () {
     }
 
     function deleteUser(req, res, next) {
+        if (req.body._id) {
+            User.findByIdAndRemove({_id: req.body._id}, function (err, user) {
+                if (err) {
+                    console.log(err);
+                    res.redirect('/user?error=deleting');
+                } else {
+                    console.log('User deleted: ', user);
+                    Project.remove({createdBy: user._id}, function (err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.clearCookie('user', 'logined');
+                            res.redirect('/user');
+                        }
+                    });
+                }
+            });
+        }
     }
 
     function login(req, res, next) {

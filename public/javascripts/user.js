@@ -11,11 +11,11 @@ $(function () {
         if (data && data.status === 'error') {
             strHTMLOutput = '<li>Error: ' + data.error + '</li>';
         } else if (data.length > 0) {
-            var intItem,
+            var i = 0,
                 totalItems = data.length;
-            for (intItem = totalItems - 1; intItem >= 0, intItem--;) {
+            for (; i < totalItems; i++) {
                 strHTMLOutput += '<li>' +
-                    '<a href="/project/' + data[intItem]._id + '">' + data[intItem].projectName + '</a>' +
+                    '<a href="/project/' + data[i]._id + '">' + data[i].projectName + '</a>' +
                     '</li>';
             }
         } else {

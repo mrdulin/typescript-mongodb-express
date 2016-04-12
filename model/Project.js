@@ -10,7 +10,14 @@ var projectSchema = new mongoose.Schema({
         'default': Date.now()
     },
     modifiedOn: Date,
-    createdBy: String,
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    contributors: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     tasks: String
 });
 
@@ -18,11 +25,18 @@ var projectSchema = new mongoose.Schema({
 //实例方法methods关键字，new Project({...})出来的实例调用
 //静态方法必须在schema声明之后，mongoose.model编译之前定义，否则会提示xxx is not a function
 projectSchema.statics = {
-    findByUserId: findByUserId
+    findByUserId: findByUserId,
+    findById: findById
 };
 
 function findByUserId(id, cb) {
     return this.find({createdBy: id}, '_id projectName', {sort: 'modifiedOn'}, cb);
 }
 
-module.exports = mongoose.model('Project', projectSchema);
+function findById(id, cb) {
+    return this.findOne({_id: id}, null, {sort: 'createdOn'}, cb);
+}
+
+var project = mongoose.model('Project', projectSchema);
+
+module.exports = project;

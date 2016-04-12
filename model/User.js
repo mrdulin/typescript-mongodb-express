@@ -3,10 +3,15 @@
  */
 var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        validate: {validator: nameLengthValidator, msg: 'username must be gt 5 characters'}
+    },
     email: {
         type: String,
-        unique: true
+        unique: true,
+        required: true
     },
     createdOn: {
         type: Date,
@@ -22,6 +27,10 @@ userSchema.statics = {
 
 function findById(id, cb) {
     return this.findOne({_id: id}, cb);
+}
+
+function nameLengthValidator(name) {
+    return name && name.length > 5;
 }
 
 var User = mongoose.model('User', userSchema);
