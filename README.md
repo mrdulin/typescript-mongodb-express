@@ -1,5 +1,5 @@
 # MEN-demo
 
-1.  `npm install --prodution`å®‰è£…nodeæ¨¡å—
-2.  `mongod`è¿æ¥mongodb,ä½¿ç”¨test db
-3.  `nodemon app.js`æˆ–è€…`npm start`å¯åŠ¨nodeæœ¬åœ°æœåŠ¡å™¨,åœ°å€`http://localhost:3000`
+1.  `npm install --prodution`°²×°nodeÄ£¿é
+2.  `mongod`Æô¶¯mongodb,Ê¹ÓÃtestÊı¾İ¿â
+3.  `nodemon app.js`»òÕßnpm start`Æô¶¯node·şÎñÆ÷,ä¯ÀÀÆ÷·ÃÎÊ`http://localhost:3000`
