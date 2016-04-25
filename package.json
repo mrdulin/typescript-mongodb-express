@@ -1,0 +1,19 @@
+{
+  "name": "express-zipcode-forecast",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "forecastio": "^1.0.1",
+    "zippity-do-dah": "0.0.2"
+  }
+}
