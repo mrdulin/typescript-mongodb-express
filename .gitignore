@@ -47,7 +47,12 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
+<<<<<<< HEAD
 node_modules/
 .DS_*
 .vscode/
 
+=======
+node_modules
+bower_components
+>>>>>>> Guestbook
