@@ -1,51 +1,44 @@
 var express = require('express');
 var router = express.Router();
 var morgan = require('morgan');
-var fs = require('fs');
+var path = require('path');
 
 // app.use(morgan('short'));
 
-router.use(logger, notFound, error);
+router.use(logger);
 
 router
-    .get('/static-file', function(req, res) {
-        var filePath = path.join(__dirname, 'static', req.url);
+    .get('/', function(req, res) {
+        res.render('./static-file/index');
+    })
+    .get('/queryFile', function(req, res) {
 
-        console.log(filePath);
+        var options = {
+            root: path.resolve(__dirname, '../../public/static-file/'),
+            dotfiles: 'deny',
+            headers: {
+                'x-timestamp': Date.now(),
+                'x-sent': true
+            }  
+        };
 
-        fs.stat(filePath, function(err, fileInfo) {
-            if(err) {
-                next();
-                return;
-            }
-
-            if(fileInfo.isFile()) {
-                res.sendFile(filePath, function(error) {
-                    if(error) {
-                        next(new Error('Error sending file!'));
-                    } else {
-                        console.log('File sent');
-                    }
-                });
+        var fileName = req.query.name;
+        
+        res.sendFile(fileName, options, function (err) {
+            if (err) {
+                console.log(err);
+                res.status(err.status).end();
             } else {
-                next();
+                console.log('Sent:', fileName);
             }
         });
+
     })
 
 function logger(req, res, next) {
     console.log('Request IP: ' + req.ip);
     console.log('Request date: ' + new Date());
     next();
-}
-
-function notFound(req, res, next) {
-    res.status(404).send('File not found!');
-}
-
-function error(err, req, res, next) {
-    console.error(err);
-    res.status(500).send('Internal server error');
 }
 
 module.exports = router;
