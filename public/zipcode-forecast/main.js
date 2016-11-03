@@ -13,7 +13,7 @@ $(function() {
         $h1.text('loading...');
 
         var request = $.ajax({
-            url: '/' + zipcode,
+            url: '/zipcode-forecast/' + zipcode,
             dataType: 'json'
         });
 

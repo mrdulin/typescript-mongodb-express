@@ -1,13 +1,17 @@
 {
-  "name": "express-zipcode-forecast",
+  "name": "Training.MEN",
   "version": "1.0.0",
-  "description": "",
+  "description": "mongodb express node training",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "mongodb",
+    "mongoose",
+    "express",
+    "node"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
