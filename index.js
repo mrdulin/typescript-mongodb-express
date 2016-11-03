@@ -22,6 +22,7 @@ app.get('/', function(req, res) {
 app.use('/zipcode-forecast', require('./routers/zipcode-forecast'));
 app.use('/static-file', require('./routers/static-file'));
 app.use('/guest-book', require('./routers/guest-book'));
+app.use('/pro-express', require('./routers/pro-express'));
 
 app.use(notFound);
 
