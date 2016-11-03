@@ -16,6 +16,7 @@ app.get('/', function(req, res) {
 });
 
 app.use('/zipcode-forecast', require('./routers/zipcode-forecast'));
+app.use('/static-file', require('./routers/static-file'));
 
 app.use(notFoundHandler);
 
