@@ -14,16 +14,16 @@ router.use(
 
 router
     .get('/', function(req, res) {
-        res.render(view + 'index');
+        res.render(viewPath + 'index');
     })
 
 router
     .route('/new-entry')
     .get(function(req, res) {
-        res.render(view + 'new-entry');
+        res.render(viewPath + 'new-entry');
     })
     .post(function(req, res) {
-        var entries = req.app.entries;
+        var entries = req.app.locals.entries;
 
         if(!req.body.title || !req.body.content) {
             res.status(400).send('Entry must have a title and a body !');
@@ -35,7 +35,7 @@ router
             published: new Date()
         });
 
-        res.redirect('/');
+        res.redirect('/guest-book');
     })
 
 module.exports = router;
