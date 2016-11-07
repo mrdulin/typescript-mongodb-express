@@ -12,6 +12,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 
 var db = require(__base + 'db');
+var util = require(__base + 'helpers/util');
 
 var static_dir = path.resolve(__dirname, 'public');
 app.use(express.static(static_dir));
@@ -30,24 +31,22 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-void function setupController(app) {
-  [
-    'zipcode-forecast',
-    'static-file',
-    'guest-book',
-    'pro-express',
-    'seed',
-    'mongodb-nodejs-driver'
-  ].map(function (controllerName) {
-    app.use('/' + controllerName, require(__base + 'controllers/' + controllerName));
-  })
-} (app);
+var controllers = [
+  'zipcode-forecast',
+  'static-file',
+  'guest-book',
+  'pro-express',
+  'seed',
+  'mongodb-nodejs-driver',
+  'daily-english'
+]
+
+util.setupController(controllers, app);
 
 //curl -X http://localhost:3000/v1/users
 //curl -X http://localhost:3000/v2/users
 app.use('/v1/users', require(__base + 'controllers/seed/users-v1'));
 app.use('/v2/users', require(__base + 'controllers/seed/users-v2'));
-
 
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
