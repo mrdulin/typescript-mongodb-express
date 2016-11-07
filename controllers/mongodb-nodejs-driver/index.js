@@ -8,24 +8,24 @@ var url = 'mongodb://localhost:27017/TrainingMEN';
 /**
  * 连接数据库实例，该数据库实例运行在localhost:27017上，TrainingMEN表示使用的数据库名称，如果数据库名称省略，则MongoClient会使用默认的test数据库
  */
-MongoClient.connect(url, function (err, db) {
-    assert.equal(null, err);
-    console.log("Connected successfully to server");
+// MongoClient.connect(url, function (err, db) {
+    // assert.equal(null, err);
+    // console.log("Connected successfully to server");
 
     // insertDocuments(db, function () {
     // findDocuments(db, function () {
     // updateDocument(db, function () {
     // removeDocument(db, function () {
     // indexCollection(db, function () {
-        createCapped(db, function() {
-            db.close();
-        })
+        // createCapped(db, function() {
+        //     db.close();
+        // })
     // })
     // })
     // })
     // })
     // })
-})
+// })
 
 /** 
  * 向名为documents的集合中插入3个文档
