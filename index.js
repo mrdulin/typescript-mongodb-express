@@ -37,6 +37,8 @@ app.use('/seed', require('./routers/seed'));
 app.use('/v1/users', require('./routers/seed/users-v1'));
 app.use('/v2/users', require('./routers/seed/users-v2'));
 
+app.use('/mongodb-nodejs-driver', require('./routers/mongodb-nodejs-driver'));
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
