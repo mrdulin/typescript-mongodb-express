@@ -12,7 +12,10 @@ $(function() {
 
             },
             success: function(data, textStatus, jqXhr) {
-                // document.write(data)
+                if(data.redirectUrl) {
+                    alert(data.msg);
+                    window.location.href = data.redirectUrl;
+                }
             }
         })
     });

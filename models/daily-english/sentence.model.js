@@ -14,7 +14,7 @@ exports.create = function(enText, cnText, cb) {
 exports.remove = function(id, cb) {
     var collection = db.get().collection('sentence');
 
-    collection.remove({_id: new mongodb.ObjectId(id)}, function(err, result) {
+    collection.deleteOne({_id: new mongodb.ObjectId(id)}, function(err, result) {
         if(err) cb(err, null);
         console.log('Delete a document from the collection');
         cb(null, result);
@@ -22,7 +22,13 @@ exports.remove = function(id, cb) {
 };
 
 exports.deleteAll = function(cb) {
-
+    var collection = db.get().collection('sentence');
+    
+    collection.deleteMany({}, function(err, result) {
+        if(err) cb(err, null);
+        console.log('Delete all documents from the collection');
+        cb(null, result);
+    })
     
 };
 

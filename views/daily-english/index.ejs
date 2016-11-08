@@ -16,6 +16,9 @@
     </form>
 
     <h3>每日一句英文：</h3>
+    <form action="/daily-english/sentence/deleteAll" method='post'>
+        <button type='submit'>全部删除</button>
+    </form>
     <ul>
         <% for(var i = 0; i < sentences.length; i++) { %>
         <li>

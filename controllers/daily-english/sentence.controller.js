@@ -16,9 +16,17 @@ router
         var id = req.body.id;
         sentence.remove(id, function(err, result) {
             if(err) next(err);
-            console.log(result, req.get('referer'));
-            res.redirect('/daily-english');
+            res.status(200).json({
+                redirectUrl: req.get('referer'),
+                msg: '删除成功'
+            })
         })  
+    })
+    .post('/deleteAll', function(req, res, next) {
+        sentence.deleteAll(function(err, result) {
+            if(err) next(err);
+            res.redirect('/daily-english');
+        })
     })
 
 module.exports = router;
