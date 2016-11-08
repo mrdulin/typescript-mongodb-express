@@ -171,20 +171,30 @@ var UserController = (function () {
     }
 }());
 
-router.get('/user', UserController.renderUserProfile);
+router
+    .get('/', UserController.renderUserProfile);
 
-router.get('/user/new', UserController.renderCreateUser);
-router.post('/user/new', UserController.createUser);
+router
+    .route('/new')
+    .get(UserController.renderCreateUser)
+    .post(UserController.createUser)
 
-router.get('/user/edit', UserController.renderEditUser);
-router.post('/user/edit', UserController.editUser);
+router
+    .route('/edit')
+    .get(UserController.renderEditUser)
+    .post(UserController.editUser)
 
-router.get('/user/delete', UserController.renderDeleteUser);
-router.post('/user/delete', UserController.deleteUser);
+router
+    .route('/delete')
+    .get(UserController.renderDeleteUser)
+    .post(UserController.deleteUser)
 
-router.get('/login', UserController.renderLogin);
-router.post('/login', UserController.login);
+router
+    .route('/login')
+    .get(UserController.renderLogin)
+    .post(UserController.login)
 
-router.post('/logout', UserController.logout);
+router
+    .post('/logout', UserController.logout);
 
 module.exports = router;
