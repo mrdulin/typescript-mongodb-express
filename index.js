@@ -38,7 +38,8 @@ var controllers = [
   'pro-express',
   'seed',
   'mongodb-nodejs-driver',
-  'daily-english'
+  'daily-english',
+  'sign-login-flow'
 ]
 
 util.setupController(controllers, app);
