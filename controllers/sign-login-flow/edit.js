@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.route('/')
     .get(ensureAuthenticated, function (req, res) {
-        res.render("edit");
+        res.render("./sign-login-flow/edit");
     })
     .post(ensureAuthenticated, function (req, res, next) {
         req.user.displayName = req.body.displayname;
@@ -14,7 +14,7 @@ router.route('/')
                 return;
             }
             req.flash("info", "Profile updated!");
-            res.redirect("/edit");
+            res.redirect("/sign-login-flow/edit");
         });
     })
 
@@ -23,6 +23,8 @@ function ensureAuthenticated(req, res, next) {
         next();
     } else {
         req.flash("info", "You must be logged in to see this page.");
-        res.redirect("/login");
+        res.redirect("/sign-login-flow/login");
     }
 }
+
+module.exports = router;

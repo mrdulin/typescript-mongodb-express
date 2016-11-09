@@ -11,3 +11,5 @@ router.route('/')
         failureRedirect: "/sign-login-flow/login",
         failureFlash: true
     }))
+
+module.exports = router;

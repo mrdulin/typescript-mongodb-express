@@ -1,11 +1,12 @@
 var express = require('express'),
     router = express.Router(),
-    passport = require('passport');
+    passport = require('passport'),
+    User = require(__base + 'models/sign-login-flow/user');
 
 router
     .route('/')
     .get(function(req, res, next) {
-         res.render('signup');
+         res.render('./sign-login-flow/signup');
     })
     .post(function (req, res, next) {
         var username = req.body.username;
@@ -15,7 +16,7 @@ router
             if (err) return next(err);
             if (user) {
                 req.flash('error', 'User already exists');
-                return res.redirect('/signup');
+                return res.redirect('/sign-login-flow/signup');
             }
 
             var newUser = new User({
@@ -30,7 +31,9 @@ router
             });
         });
     }, passport.authenticate('login', {
-        successRedirect: '/',
-        failureRedirect: '/signup',
+        successRedirect: '/sign-login-flow',
+        failureRedirect: '/sign-login-flow/signup',
         failureFlash: true
     }))
+
+module.exports = router;

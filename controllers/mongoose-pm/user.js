@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../model/User');
+var User = require(__base + 'models/mongoose-pm/User');
 
 var UserController = (function () {
 

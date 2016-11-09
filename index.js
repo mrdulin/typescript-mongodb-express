@@ -39,8 +39,7 @@ var controllers = [
   'seed',
   'mongodb-nodejs-driver',
   'daily-english',
-  'sign-login-flow',
-  'mongoose-pm'
+  'sign-login-flow'
 ]
 
 util.setupController(controllers, app);

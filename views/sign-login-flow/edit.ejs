@@ -1,6 +1,6 @@
 <% include _header %>
 <h1>Edit your profile</h1>
-<form action="/edit" method="post">
+<form action="/sign-login-flow/edit" method="post">
 	<input name="displayname" type="text" class="form-control"
 	       placeholder="Display name"
 	       value="<%= currentUser.displayName || "" %>">
