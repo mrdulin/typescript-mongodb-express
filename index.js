@@ -13,11 +13,12 @@ var logger = require('morgan');
 
 var db = require(__base + 'db');
 var util = require(__base + 'helpers/util');
+require(__base + 'mongoose-connect');
 
 var static_dir = path.resolve(__dirname, 'public');
 app.use(express.static(static_dir));
 app.set('views', path.resolve(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
 app.engine('jade', require('jade').__express);
 app.set('port', process.env.PORT || 3000);
@@ -42,8 +43,8 @@ var controllers = [
   'mongodb-nodejs-driver',
   'daily-english',
   'sign-login-flow',
-  'pagination'
-  // 'mongoose-pm'
+  'pagination',
+  'mongoose-pm'
 ]
 
 util.setupController(controllers, app);
@@ -64,6 +65,7 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
+    console.log(err.message + '/n' + err.status + '/n' + err.stack);
     res.render('error', {
       message: err.message,
       error: err

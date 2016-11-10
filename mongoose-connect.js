@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 
-var dbURI = 'mongodb://localhost:27017/MongoosePM';
+var dbURI = 'mongodb://localhost:27017/TrainingMEN';
 
 mongoose.connect(dbURI);
 

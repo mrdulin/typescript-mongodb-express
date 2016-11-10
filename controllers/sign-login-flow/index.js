@@ -6,10 +6,10 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 require(__base + "middlewares/setuppassport")();
 
-mongoose.connect('mongodb://localhost:27017/test');
+// mongoose.connect('mongodb://localhost:27017/test');
 
 router.use(
     bodyParser.json(),
@@ -42,7 +42,7 @@ router
             .sort({createdAt: 'descending'})
             .exec(function (err, users) {
                 if (err) return next(err);
-                res.render('./sign-login-flow/index', {users: users});
+                res.render('./sign-login-flow/index.ejs', {users: users});
             });
     })
     .get("/logout", function (req, res) {

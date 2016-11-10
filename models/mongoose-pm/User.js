@@ -2,11 +2,12 @@
  * Created by Administrator on 2016/4/11.
  */
 var mongoose = require('mongoose');
+
 var userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        validate: {validator: nameLengthValidator, msg: 'username must be gt 5 characters'}
+        validate: {validator: nameLengthValidator, msg: 'username must be gt 4 characters'}
     },
     email: {
         type: String,
@@ -30,9 +31,7 @@ function findById(id, cb) {
 }
 
 function nameLengthValidator(name) {
-    return name && name.length > 5;
+    return name && name.length > 4;
 }
 
-var User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('PM-User', userSchema);;

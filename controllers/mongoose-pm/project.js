@@ -1,14 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-// var Project = require(__base + 'models/mongoose-pm/Project');
-var Project = mongoose.model('Project');
+var Project = require(__base + 'models/mongoose-pm/Project');
 
 router
     .route('/new')
     .get(function (req, res, next) {
         if (req.cookies.logined) {
-            res.render('project_form', {
+            res.render('./mongoose-pm/project_form.jade', {
                 title: 'Create project',
                 projectName: '',
                 projectId: '',
@@ -18,7 +16,7 @@ router
                 buttonText: 'create'
             });
         } else {
-            res.redirect('/login');
+            res.redirect('/mongoose-pm/login');
         }
     })
     .post(function (req, res, next) {
@@ -30,13 +28,13 @@ router
         }).save(function (err, project) {
             if (err) {
                 if (err === 11000) {
-                    res.redirect('/project/new?error=true');
+                    res.redirect('/mongoose-pm/project/new?error=true');
                 } else {
-                    res.redirect('/?error=true');
+                    res.redirect('/mongoose-pm/?error=true');
                 }
             } else {
                 console.log('create project is: ', project);
-                res.redirect('/user');
+                res.redirect('/mongoose-pm/user');
             }
         });
     })
@@ -52,7 +50,7 @@ router
                         console.log(err);
                     } else {
                         console.log('project is: ', project);
-                        res.render('project_page', {
+                        res.render('./mongoose-pm/project_page.jade', {
                             projectName: project.projectName,
                             //createdBy: project.createdBy,
                             tasks: project.tasks,
@@ -64,7 +62,7 @@ router
                 });
         } else {
             console.log('project id must be supplied');
-            res.redirect('/user');
+            res.redirect('/mongoose-pm/user');
         }
     })
 
@@ -77,7 +75,7 @@ router
                     console.log(err);
                 } else {
                     console.log('project is: ', project);
-                    res.render('project_form', {
+                    res.render('./mongoose-pm/project_form.jade', {
                         title: "Edit project",
                         userId: req.cookies.user._id,
                         username: req.cookies.user.name,
@@ -103,7 +101,7 @@ router
                     project.save(function (err, projectSaved) {
                         if (!err) {
                             console.log('project saved success');
-                            res.redirect('/project/' + projectSaved._id);
+                            res.redirect('/mongoose-pm/project/' + projectSaved._id);
                         }
                     })
                 }
