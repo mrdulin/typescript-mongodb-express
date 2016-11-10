@@ -88,4 +88,13 @@ __注意：__
 
 * 为什么要用类似`npm`, `bower`这样的包管理工具，一是按照依赖包方便，最少只需要一行命令; 二是自动管理适配依赖包，a. 如果要安装的包又依赖很多其他的包，包管理工具能自动分析安装; b. 安装的包与其他包版本上有依赖管理，包管理工具可以安装合适的版本。
 
+* `app.locals`和`res.locals`的区别？
 
+    1. app被创建(var app = express())
+    2. app.locals被创建
+    3. request到达
+    4. res.locals被创建
+    5. 可以添加一些东西在res.locals上，例如用户角色(res.locals.role = 'admin')
+    6. 送出一个response(res.render('some/view'))
+    7. request结束, res.locals被垃圾回收
+    8. app.locals一直存在，直到程序退出
