@@ -47,7 +47,10 @@ router
     })
     .get("/logout", function (req, res) {
         req.logout();
-        res.redirect("/sign-login-flow");
+        // 重定向方式一：
+        // res.redirect("/sign-login-flow");
+        // 重定向方式二: req.baseUrl的地址是改路由挂载的路由地址，此处是/sign-login-flow
+        res.redirect(req.baseUrl);
     })
 
 module.exports = router;

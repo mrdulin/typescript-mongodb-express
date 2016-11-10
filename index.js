@@ -17,7 +17,9 @@ var util = require(__base + 'helpers/util');
 var static_dir = path.resolve(__dirname, 'public');
 app.use(express.static(static_dir));
 app.set('views', path.resolve(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs').__express);
+app.engine('jade', require('jade').__express);
 app.set('port', process.env.PORT || 3000);
 
 app.use(logger('dev'));
@@ -41,6 +43,7 @@ var controllers = [
   'daily-english',
   'sign-login-flow',
   'pagination'
+  // 'mongoose-pm'
 ]
 
 util.setupController(controllers, app);

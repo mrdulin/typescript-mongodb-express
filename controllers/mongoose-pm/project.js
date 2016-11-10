@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Project = require(__base + 'models/mongoose-pm/Project');
+var mongoose = require('mongoose');
+// var Project = require(__base + 'models/mongoose-pm/Project');
+var Project = mongoose.model('Project');
 
 router
     .route('/new')
