@@ -98,3 +98,5 @@ __注意：__
     6. 送出一个response(res.render('some/view'))
     7. request结束, res.locals被垃圾回收
     8. app.locals一直存在，直到程序退出
+
+*  如果在路由中获取`app.locals`？通过`req.app.locals`, `req.app`是`app`的引用。

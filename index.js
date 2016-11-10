@@ -31,20 +31,20 @@ var entries = [];
 app.locals.entries = entries;
 
 app.get('/', function (req, res) {
-  res.render('index');
+  	res.render('index');
 });
 
 var controllers = [
-  'zipcode-forecast',
-  'static-file',
-  'guest-book',
-  'pro-express',
-  'seed',
-  'mongodb-nodejs-driver',
-  'daily-english',
-  'sign-login-flow',
-  'pagination',
-  'mongoose-pm'
+	'zipcode-forecast',
+	'static-file',
+	'guest-book',
+	'pro-express',
+	'seed',
+	'mongodb-nodejs-driver',
+	'daily-english',
+	'sign-login-flow',
+	'pagination',
+	'mongoose-pm'
 ]
 
 util.setupController(controllers, app);
@@ -55,44 +55,44 @@ app.use('/v1/users', require(__base + 'controllers/seed/users-v1'));
 app.use('/v2/users', require(__base + 'controllers/seed/users-v2'));
 
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    console.log(err.message + '/n' + err.status + '/n' + err.stack);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
+	app.use(function (err, req, res, next) {
+		res.status(err.status || 500);
+		console.log(err.message + '/n' + err.status + '/n' + err.stack);
+		res.render('error', {
+		message: err.message,
+		error: err
+		});
+	});
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+	res.status(err.status || 500);
+	res.render('error', {
+		message: err.message,
+		error: {}
+	});
 });
 
 // Connect to Mongo on start
 db.connect('mongodb://localhost:27017/TrainingMEN', function (err) {
-  if (err) {
-    console.log('Unable to connect to Mongo.')
-    process.exit(1)
-  } else {
-    app.listen(app.get('port'), function () {
-      console.log('App listen on port ' + app.get('port'));
-    });
-  }
+  	if (err) {
+		console.log('Unable to connect to Mongo.')
+		process.exit(1)
+	} else {
+		app.listen(app.get('port'), function () {
+		console.log('App listen on port ' + app.get('port'));
+		});
+	}
 })
 
 
