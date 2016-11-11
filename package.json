@@ -1,40 +1,40 @@
 {
-  "name": "Training.MEN",
-  "version": "1.0.0",
-  "description": "mongodb express node training",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./bin/www"
-  },
-  "keywords": [
-    "mongodb",
-    "mongoose",
-    "express",
-    "node"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.15.0",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.3.5",
-    "debug": "~2.2.0",
-    "ejs": "^2.4.1",
-    "express": "^4.13.4",
-    "express-session": "^1.13.0",
-    "forecastio": "^1.0.1",
-    "jade": "^1.11.0",
-    "mongodb": "^2.2.11",
-    "mongoose": "^4.4.11",
-    "morgan": "^1.7.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "serve-favicon": "~2.3.0",
-    "validator": "^6.1.0",
-    "zippity-do-dah": "0.0.2"
-  },
-  "devDependencies": {
-    "assert": "^1.4.1"
-  }
+	"name": "Training.MEN",
+	"version": "1.0.0",
+	"description": "mongodb express node training",
+	"main": "index.js",
+	"scripts": {
+		"start": "node ./bin/www"
+	},
+	"keywords": [
+		"mongodb",
+		"mongoose",
+		"express",
+		"node"
+	],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt-nodejs": "0.0.3",
+		"body-parser": "^1.15.0",
+		"connect-flash": "^0.1.1",
+		"cookie-parser": "~1.3.5",
+		"debug": "~2.2.0",
+		"ejs": "^2.4.1",
+		"express": "^4.13.4",
+		"express-session": "^1.13.0",
+		"forecastio": "^1.0.1",
+		"jade": "^1.11.0",
+		"mongodb": "^2.2.11",
+		"mongoose": "^4.4.11",
+		"morgan": "^1.7.0",
+		"passport": "^0.3.2",
+		"passport-local": "^1.0.0",
+		"serve-favicon": "~2.3.0",
+		"validator": "^6.1.0",
+		"zippity-do-dah": "0.0.2"
+	},
+	"devDependencies": {
+		"assert": "^1.4.1"
+	}
 }
