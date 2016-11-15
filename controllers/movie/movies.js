@@ -7,15 +7,19 @@ router.route('/')
 	.post((req, res, next) => {
 
 	})
-	.get('/:id', (req, res, next) => {
+
+router.route('/:id')
+	.get((req, res, next) => {
 
 	})
-	.put('/:id', (req, res, next) => {
+	.put((req, res, next) => {
 
 	})
-	.delete('/:id', (req, res, next) => {
+	.delete((req, res, next) => {
 
 	})
+
+router.
 	post('/:id/actors', (req, res, next) => {
 
 	})

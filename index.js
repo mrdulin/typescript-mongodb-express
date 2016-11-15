@@ -44,7 +44,8 @@ var controllers = [
 	'daily-english',
 	'sign-login-flow',
 	'pagination',
-	'mongoose-pm'
+	'mongoose-pm',
+	'movie'
 ]
 
 util.setupController(controllers, app);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const generateId = require('./plugins/generateId');
 
 const actorSchema = new mongoose.Schema({
 	id: {
@@ -21,5 +22,7 @@ const actorSchema = new mongoose.Schema({
 		ref: 'Movie'
 	}]
 })
+
+actorSchema.plugin(generateId());
 
 module.exports = mongoose.model('Actor', actorSchema);
