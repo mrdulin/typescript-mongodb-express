@@ -11,7 +11,7 @@ var cookieParser = require('cookie-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 
-var db = require(__base + 'db');
+// var db = require(__base + 'db');
 var util = require(__base + 'helpers/util');
 require(__base + 'mongoose-connect');
 
@@ -31,7 +31,7 @@ var entries = [];
 app.locals.entries = entries;
 
 app.get('/', function (req, res) {
-  	res.render('index');
+	res.render('index');
 });
 
 var controllers = [
@@ -68,8 +68,8 @@ if (app.get('env') === 'development') {
 		res.status(err.status || 500);
 		console.log(err.message + '/n' + err.status + '/n' + err.stack);
 		res.render('error', {
-		message: err.message,
-		error: err
+			message: err.message,
+			error: err
 		});
 	});
 }
@@ -86,12 +86,12 @@ app.use(function (err, req, res, next) {
 
 // Connect to Mongo on start
 db.connect('mongodb://localhost:27017/TrainingMEN', function (err) {
-  	if (err) {
+	if (err) {
 		console.log('Unable to connect to Mongo.')
 		process.exit(1)
 	} else {
 		app.listen(app.get('port'), function () {
-		console.log('App listen on port ' + app.get('port'));
+			console.log('App listen on port ' + app.get('port'));
 		});
 	}
 })
