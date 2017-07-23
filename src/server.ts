@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as core from "express-serve-static-core";
 import * as http from 'http';
-import { Port } from './helpers/normalizePort';
-import setupEnvironment from './environment'
+import { Port } from './utils/normalizePort';
+import setupEnvironment from './environment';
 import setupRoutes from './routes';
 
 global.__base = __dirname + '/';

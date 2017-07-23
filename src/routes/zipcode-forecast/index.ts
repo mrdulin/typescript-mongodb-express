@@ -14,7 +14,11 @@ router
    * 首页
    */
   .get('/', (req: core.Request, res: core.Response) => {
-    res.render('./zipcode-forecast');
+    const date: string = res.locals.formatDate('2017-07-23');
+    console.log(res.locals.formatDate);
+    res.render('./zipcode-forecast', {
+      date
+    });
   })
 
   /**
