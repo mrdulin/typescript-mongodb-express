@@ -89,7 +89,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
 var http = __webpack_require__(/*! http */ 2);
 var environment_1 = __webpack_require__(/*! ./environment */ 3);
-var routes_1 = __webpack_require__(/*! ./routes */ 8);
+var routes_1 = __webpack_require__(/*! ./routes */ 11);
 global.__base = __dirname + '/';
 var app = express();
 environment_1.default(app, express);
@@ -156,13 +156,24 @@ var path = __webpack_require__(/*! path */ 4);
 var Ejs = __webpack_require__(/*! ejs */ 5);
 var morgan = __webpack_require__(/*! morgan */ 6);
 var normalizePort_1 = __webpack_require__(/*! ./helpers/normalizePort */ 7);
+var cookieParser = __webpack_require__(/*! cookie-parser */ 8);
+var bodyParser = __webpack_require__(/*! body-parser */ 9);
+var favicon = __webpack_require__(/*! serve-favicon */ 10);
 var DEFAULT_PORT = '2222';
 var setupEnvironment = function (app, express) {
     var staticDir = path.resolve(process.cwd(), 'build/public');
     var viewsDir = path.resolve(process.cwd(), 'build/views');
+    var uploadDir = path.resolve(process.cwd(), 'build/upload');
     var port = normalizePort_1.default(process.env.PORT || DEFAULT_PORT);
+    app.use(favicon(path.resolve(process.cwd(), 'build/public/favicon.jpeg')));
+    app.use(cookieParser());
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
     app.set('port', port);
     app.set('views', viewsDir);
+    app.set('upload', uploadDir);
     app.set('view engine', 'ejs');
     app.engine('ejs', Ejs.renderFile);
     app.use(express.static(staticDir));
@@ -231,6 +242,39 @@ exports.default = normalizePort;
 
 /***/ }),
 /* 8 */
+/*!********************************!*\
+  !*** external "cookie-parser" ***!
+  \********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("cookie-parser");
+
+/***/ }),
+/* 9 */
+/*!******************************!*\
+  !*** external "body-parser" ***!
+  \******************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("body-parser");
+
+/***/ }),
+/* 10 */
+/*!********************************!*\
+  !*** external "serve-favicon" ***!
+  \********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("serve-favicon");
+
+/***/ }),
+/* 11 */
 /*!***********************!*\
   !*** ./src/routes.ts ***!
   \***********************/
@@ -241,7 +285,7 @@ exports.default = normalizePort;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var zipcode_forecast_1 = __webpack_require__(/*! ./controllers/zipcode-forecast */ 9);
+var zipcode_forecast_1 = __webpack_require__(/*! ./routes/zipcode-forecast */ 12);
 var setupRoutes = function (app) {
     app.get('/', function (req, res) {
         res.render('index');
@@ -262,10 +306,10 @@ exports.default = setupRoutes;
 
 
 /***/ }),
-/* 9 */
-/*!***************************************************!*\
-  !*** ./src/controllers/zipcode-forecast/index.ts ***!
-  \***************************************************/
+/* 12 */
+/*!**********************************************!*\
+  !*** ./src/routes/zipcode-forecast/index.ts ***!
+  \**********************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -274,8 +318,8 @@ exports.default = setupRoutes;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
-var ForecastIo = __webpack_require__(/*! forecastio */ 10);
-var zipdb = __webpack_require__(/*! zippity-do-dah */ 11);
+var ForecastIo = __webpack_require__(/*! forecastio */ 13);
+var zipdb = __webpack_require__(/*! zippity-do-dah */ 14);
 var router = express.Router();
 var apiKey = '3df89f5a467bec0e45f61829971072b2';
 var forecastIo = new ForecastIo(apiKey, {
@@ -283,7 +327,7 @@ var forecastIo = new ForecastIo(apiKey, {
 });
 router
     .get('/', function (req, res) {
-    res.render('zipcode-forecast/index');
+    res.render('./zipcode-forecast');
 })
     .get(/^\/(\d{5})$/, function (req, res, next) {
     var zipcode = req.params[0];
@@ -310,7 +354,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 10 */
+/* 13 */
 /*!*****************************!*\
   !*** external "forecastio" ***!
   \*****************************/
@@ -321,7 +365,7 @@ exports.default = router;
 module.exports = require("forecastio");
 
 /***/ }),
-/* 11 */
+/* 14 */
 /*!*********************************!*\
   !*** external "zippity-do-dah" ***!
   \*********************************/

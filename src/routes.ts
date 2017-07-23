@@ -1,5 +1,5 @@
 import { Application, Request, Response, NextFunction } from "express-serve-static-core";
-import zipcode from './controllers/zipcode-forecast';
+import zipcode from './routes/zipcode-forecast';
 
 const setupRoutes = (app: Application) => {
   //curl -X http://localhost:3000/v1/users

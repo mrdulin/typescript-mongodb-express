@@ -14,7 +14,7 @@ router
    * 首页
    */
   .get('/', (req: core.Request, res: core.Response) => {
-    res.render('zipcode-forecast/index');
+    res.render('./zipcode-forecast');
   })
 
   /**
