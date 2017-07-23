@@ -4,7 +4,8 @@
   "description": "mongodb express node training",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "build": "rm -rf build && webpack --progress",
+    "start": "npm run build && node ./build/server.js"
   },
   "keywords": [
     "mongodb",
@@ -34,12 +35,16 @@
     "zippity-do-dah": "^0.0.3"
   },
   "devDependencies": {
+    "@types/copy-webpack-plugin": "^4.0.0",
     "@types/ejs": "^2.3.33",
     "@types/express": "^4.0.36",
     "@types/morgan": "^1.7.32",
     "@types/node": "^8.0.14",
     "@types/webpack": "^3.0.5",
+    "copy-webpack-plugin": "^4.0.1",
+    "ts-loader": "^2.3.1",
     "ts-node": "^3.2.1",
+    "tslint": "^5.5.0",
     "typescript": "^2.4.2",
     "webpack": "^3.3.0"
   }
