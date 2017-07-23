@@ -1,6 +1,7 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
+import nodeExternals = require('webpack-node-externals');
 
 const config: webpack.Configuration = {
   target: 'node',
@@ -10,7 +11,8 @@ const config: webpack.Configuration = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'server.js'
+    filename: 'server.js',
+    pathinfo: true
   },
   module: {
     rules: [
@@ -22,14 +24,18 @@ const config: webpack.Configuration = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+
+    }
   },
   plugins: [
     new CopyWebpackPlugin([
       { from: './src/views', to: 'views' },
       { from: './src/public', to: 'public' }
     ])
-  ]
+  ],
+  externals: [nodeExternals()]
 };
 
 export default config;

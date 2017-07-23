@@ -53,9 +53,8 @@
     "emitDecoratorMetadata": true         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": [
-    "src/controllers/zipcode-forecast",
     "src/server.ts",
-    "src/typings"
+    "src/typings/**/*"
   ],
   "exclude": [
     "node_modules",
