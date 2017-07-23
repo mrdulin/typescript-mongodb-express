@@ -1,17 +1,16 @@
 import { Application, Request, Response, NextFunction } from "express-serve-static-core";
 import zipcode from './routes/zipcode-forecast';
+import seed from './routes/seed';
 
 const setupRoutes = (app: Application) => {
-  //curl -X http://localhost:3000/v1/users
-  //curl -X http://localhost:3000/v2/users
-  // app.use('/v1/users', require(__base + 'controllers/seed/users-v1'));
-  // app.use('/v2/users', require(__base + 'controllers/seed/users-v2'));
 
+  // -- app routes start --
   app.get('/', (req: Request, res: Response) => {
     res.render('index');
   });
-
   app.use('/zipcode-forecast', zipcode);
+  app.use('/seed', seed);
+  // -- app routes end --
 
   app.use(function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
     res.status(err.status || 500);

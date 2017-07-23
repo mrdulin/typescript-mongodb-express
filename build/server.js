@@ -459,11 +459,13 @@ module.exports = {"name":"mongodb-express","version":"1.0.0","description":"mong
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var zipcode_forecast_1 = __webpack_require__(/*! ./routes/zipcode-forecast */ 20);
+var seed_1 = __webpack_require__(/*! ./routes/seed */ 23);
 var setupRoutes = function (app) {
     app.get('/', function (req, res) {
         res.render('index');
     });
     app.use('/zipcode-forecast', zipcode_forecast_1.default);
+    app.use('/seed', seed_1.default);
     app.use(function errorHandler(err, req, res, next) {
         res.status(err.status || 500);
         if (app.get('env') !== 'production') {
@@ -551,6 +553,82 @@ module.exports = require("forecastio");
 /***/ (function(module, exports) {
 
 module.exports = require("zippity-do-dah");
+
+/***/ }),
+/* 23 */
+/*!**********************************!*\
+  !*** ./src/routes/seed/index.ts ***!
+  \**********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = __webpack_require__(/*! express */ 0);
+var users_v1_1 = __webpack_require__(/*! ./users-v1 */ 24);
+var users_v2_1 = __webpack_require__(/*! ./users-v2 */ 25);
+var router = express.Router();
+function sum(arr) {
+    var result = 0;
+    for (var i = 0; i < arr.length; i++) {
+        result += arr[i];
+    }
+    return result;
+}
+router
+    .use('/v1', users_v1_1.default)
+    .use('/v2', users_v2_1.default)
+    .get('/', function (req, res, next) {
+    res.render('./seed/index', {
+        title: 'Express',
+        nums: [1, 2, 3, 4],
+        sum: sum
+    });
+});
+exports.default = router;
+
+
+/***/ }),
+/* 24 */
+/*!*************************************!*\
+  !*** ./src/routes/seed/users-v1.ts ***!
+  \*************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = __webpack_require__(/*! express */ 0);
+var router = express.Router();
+router.get('/users', function (req, res, next) {
+    res.send('respond with a resource');
+});
+exports.default = router;
+
+
+/***/ }),
+/* 25 */
+/*!*************************************!*\
+  !*** ./src/routes/seed/users-v2.ts ***!
+  \*************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = __webpack_require__(/*! express */ 0);
+var router = express.Router();
+router.get('/', function (req, res) {
+    res.send('This is users api version 2');
+});
+exports.default = router;
+
 
 /***/ })
 /******/ ]);
