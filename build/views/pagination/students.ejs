@@ -7,16 +7,15 @@
 </head>
 
 <body>
-  <br />
-  <div>
-    <% if (!isFirstPage) { %>
-      <span class="prepage"><a title="上一页" href="?page=<%= page-1 %>">上一页</a></span>
-      <% } %>
+  <ul class="list-group">
+    <% students.forEach( function( student ) { %>
+      <li class="list-group-item">
+        <%= student.name %>
+      </li>
+      <% }) %>
+  </ul>
 
-        <% if (!isLastPage) { %>
-          <span class="nextpage"><a title="下一页" href="?page=<%= page+1 %>">下一页</a></span>
-          <% } %>
-  </div>
+  <%- include pagination %>
 </body>
 
 </html>

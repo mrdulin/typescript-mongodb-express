@@ -1,7 +1,7 @@
 <% if (pageCount > 1) { %>
   <ul class="pagination">
     <% if (currentPage > 1) { %>
-      <li><a href="/pagination/?page=1">首页</a></li>
+      <li><a href="?page=1">首页</a></li>
       <% } %>
 
         <%
@@ -22,7 +22,7 @@
                   </li>
                   <% } else { %>
                     <li>
-                      <a href="/pagination/?page=<%= i %>">
+                      <a href="?page=<%= i %>">
                         <%= i %>
                       </a>
                     </li>
@@ -34,7 +34,7 @@
                           <% } %>
 
                             <% if (currentPage != pageCount) { %>
-                              <li><a href="/pagination/?page=<%= pageCount %>">末页</a></li>
+                              <li><a href="?page=<%= pageCount %>">末页</a></li>
                               <% } %>
   </ul>
   <% } %>
