@@ -19,8 +19,10 @@ const setupEnvironment = (app: Application, express: any) => {
   const uploadDir: string = path.resolve(process.cwd(), 'build/upload');
   const port: Port = normalizePort(process.env.PORT || DEFAULT_PORT);
 
-  // var entries = [];
-  // app.locals.entries = entries;
+  // -- for guest-book testing --
+  const entries: any[] = [];
+  app.locals.entries = entries;
+  // -- --
 
   app.use(favicon(path.resolve(process.cwd(), 'build/public/favicon.jpeg')));
   app.use('/app', express.static(staticDir));
