@@ -1,6 +1,7 @@
 import { Application, Request, Response, NextFunction } from "express-serve-static-core";
 import zipcode from './routes/zipcode-forecast';
 import seed from './routes/seed';
+import proExpress from './routes/pro-express';
 
 const setupRoutes = (app: Application) => {
 
@@ -10,6 +11,7 @@ const setupRoutes = (app: Application) => {
   });
   app.use('/zipcode-forecast', zipcode);
   app.use('/seed', seed);
+  app.use('/pro-express', proExpress);
   // -- app routes end --
 
   app.use(function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {

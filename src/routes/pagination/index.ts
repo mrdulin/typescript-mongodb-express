@@ -1,6 +1,8 @@
-var express = require('express'),
-    router = express.Router(),
-    Students = require(__base + 'models/pagination/students');
+import * as express from 'express';
+import { Router } from "express-serve-static-core";
+const router: Router = express.Router();
+
+Students = require(__base + 'models/pagination/students');
 
 router
     .get('/', function (req, res, next) {
@@ -47,7 +49,7 @@ router
         Students.query(page, pageSize, function(err, result, total) {
             if(err) next(err);
             var isFirstPage = page - 1 === 0;
-            var isLastPage = (page - 1) * pageSize + result.length === total;  
+            var isLastPage = (page - 1) * pageSize + result.length === total;
             res.render('./pagination/students', {
                 students: result,
                 page: page,

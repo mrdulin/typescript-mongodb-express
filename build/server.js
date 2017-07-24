@@ -164,11 +164,13 @@ var pkg = __webpack_require__(/*! ../package.json */ 18);
 var DEFAULT_PORT = '2222';
 var setupEnvironment = function (app, express) {
     var staticDir = path.resolve(process.cwd(), 'build/public');
+    var libDir = path.resolve(process.cwd(), 'node_modules');
     var viewsDir = path.resolve(process.cwd(), 'build/views');
     var uploadDir = path.resolve(process.cwd(), 'build/upload');
     var port = normalizePort_1.default(process.env.PORT || DEFAULT_PORT);
     app.use(favicon(path.resolve(process.cwd(), 'build/public/favicon.jpeg')));
-    app.use(express.static(staticDir));
+    app.use('/app', express.static(staticDir));
+    app.use('/lib', express.static(libDir));
     app.use(cookieParser());
     app.use(bodyParser.urlencoded({
         extended: true
@@ -460,12 +462,14 @@ module.exports = {"name":"mongodb-express","version":"1.0.0","description":"mong
 Object.defineProperty(exports, "__esModule", { value: true });
 var zipcode_forecast_1 = __webpack_require__(/*! ./routes/zipcode-forecast */ 20);
 var seed_1 = __webpack_require__(/*! ./routes/seed */ 23);
+var pro_express_1 = __webpack_require__(/*! ./routes/pro-express */ 26);
 var setupRoutes = function (app) {
     app.get('/', function (req, res) {
         res.render('index');
     });
     app.use('/zipcode-forecast', zipcode_forecast_1.default);
     app.use('/seed', seed_1.default);
+    app.use('/pro-express', pro_express_1.default);
     app.use(function errorHandler(err, req, res, next) {
         res.status(err.status || 500);
         if (app.get('env') !== 'production') {
@@ -624,8 +628,57 @@ exports.default = router;
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
 var router = express.Router();
-router.get('/', function (req, res) {
+router.get('/users', function (req, res) {
     res.send('This is users api version 2');
+});
+exports.default = router;
+
+
+/***/ }),
+/* 26 */
+/*!*****************************************!*\
+  !*** ./src/routes/pro-express/index.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = __webpack_require__(/*! express */ 0);
+var router = express.Router();
+router
+    .get('/', function (req, res) {
+    res.render('./pro-express/index');
+})
+    .all('/user/:id', function checkUserId(req, res, next) {
+    var id = Number.parseInt(req.params.id, 10);
+    !isNaN(id) ? next() : res.status(500).send('user id is not a number');
+}, function processUserId(req, res) {
+    var id = req.params.id;
+    res.status(200).send('user id is ' + id);
+})
+    .get('/combo', [function (req, res, next) {
+        setTimeout(function () {
+            console.log('setTimeout is done');
+            next();
+        }, 3000);
+    }, function (req, res, next) {
+        console.log('cb2');
+        next();
+    }], function (req, res) {
+    res.status(200).send('cb3 is done');
+})
+    .get('/hangrequest', function (req, res) {
+    console.log('The request from client is hanging');
+})
+    .get('/sendjson', function (req, res) {
+    var json = {
+        name: 'dulin',
+        age: 23
+    };
+    res.status(200).send(json);
 });
 exports.default = router;
 
