@@ -965,10 +965,10 @@ router.use(function (req, res, next) {
     next();
 });
 router.use('/sentence', sentence_1.default);
-router.get('/', function (req, res) {
-    res.locals.sentence.all(function (err, sentences) {
+router.get('/', function (req, res, next) {
+    res.locals.sentence.all().then(function (sentences) {
         res.render('daily-english/index', { sentences: sentences });
-    });
+    }).catch(function (err) { return next(err); });
 });
 exports.default = router;
 
@@ -1001,36 +1001,22 @@ var Sentence = (function () {
             return result;
         });
     };
-    Sentence.prototype.remove = function (id, cb) {
-        this.col.deleteOne({ _id: new mongodb_1.ObjectID(id) }, function (err, result) {
-            if (err)
-                cb(err);
+    Sentence.prototype.remove = function (id) {
+        return this.col.deleteOne({ _id: new mongodb_1.ObjectID(id) }).then(function (result) {
             console.log('Delete a document from the collection');
-            cb(null, result);
+            return result;
         });
     };
-    Sentence.prototype.deleteAll = function (cb) {
-        this.col.deleteMany({}, function (err, result) {
-            if (err)
-                cb(err);
-            console.log('Delete all documents from the collection');
-            cb(null, result);
+    Sentence.prototype.deleteAll = function () {
+        return this.col.deleteMany({}).then(function (result) {
+            console.log('Delete all documents from the collection, total: %s', result.deletedCount);
+            return result;
         });
     };
-    Sentence.prototype.query = function (query, cb) {
-        this.col.find(query, function (err, result) {
-            if (err)
-                cb(err);
+    Sentence.prototype.all = function () {
+        return this.col.find().toArray().then(function (result) {
             console.log("Found the following records");
-            cb(null, result);
-        });
-    };
-    Sentence.prototype.all = function (cb) {
-        this.col.find({}).toArray(function (err, result) {
-            if (err)
-                cb(err);
-            console.log("Found the following records");
-            cb(null, result);
+            return result;
         });
     };
     return Sentence;
@@ -1057,28 +1043,24 @@ router
     var _a = req.body, enText = _a.enText, cnText = _a.cnText;
     res.locals.sentence.create({ enText: enText, cnText: cnText })
         .then(function (result) {
-        console.log('create result', result);
         res.redirect('/daily-english');
     })
         .catch(function (err) { return next(err); });
 })
     .post('/remove', function (req, res, next) {
     var id = req.body.id;
-    res.locals.sentence.remove(id, function (err, result) {
-        if (err)
-            next(err);
+    res.locals.sentence.remove(id).then(function (result) {
+        var redirectUrl = req.get('referer') || '/daily-english';
         res.status(200).json({
-            redirectUrl: req.get('referer'),
+            redirectUrl: redirectUrl,
             msg: '删除成功'
         });
-    });
+    }).catch(function (err) { return next(err); });
 })
     .post('/deleteAll', function (req, res, next) {
-    res.locals.sentence.deleteAll(function (err, result) {
-        if (err)
-            next(err);
+    res.locals.sentence.deleteAll().then(function (result) {
         res.redirect('/daily-english');
-    });
+    }).catch(function (err) { return next(err); });
 });
 exports.default = router;
 

@@ -1,9 +1,7 @@
-
-// var db = require(__base + 'db');
-// var mongodb = require('mongodb');
-import { Db, Collection, MongoError, ObjectID, InsertOneWriteOpResult } from 'mongodb';
-
-type IMongoCallback = (err: MongoError | null, result?: any) => void;
+import {
+  Db, Collection, ObjectID,
+  InsertOneWriteOpResult, DeleteWriteOpResultObject
+} from 'mongodb';
 
 class Sentence {
   public col: Collection;
@@ -21,35 +19,24 @@ class Sentence {
       });
   }
 
-  public remove(id: string, cb: IMongoCallback) {
-    this.col.deleteOne({ _id: new ObjectID(id) }, function (err: MongoError, result: any) {
-      if (err) cb(err);
+  public remove(id: string) {
+    return this.col.deleteOne({ _id: new ObjectID(id) }).then((result: DeleteWriteOpResultObject) => {
       console.log('Delete a document from the collection');
-      cb(null, result);
+      return result;
     });
   }
 
-  public deleteAll(cb: IMongoCallback) {
-    this.col.deleteMany({}, function (err: MongoError, result: any) {
-      if (err) cb(err);
-      console.log('Delete all documents from the collection');
-      cb(null, result);
+  public deleteAll() {
+    return this.col.deleteMany({}).then((result: DeleteWriteOpResultObject) => {
+      console.log('Delete all documents from the collection, total: %s', result.deletedCount);
+      return result;
     });
   }
 
-  public query(query: string, cb: IMongoCallback) {
-    this.col.find(query, function (err: MongoError, result: any) {
-      if (err) cb(err);
+  public all() {
+    return this.col.find().toArray().then((result) => {
       console.log("Found the following records");
-      cb(null, result);
-    });
-  }
-
-  public all(cb: IMongoCallback) {
-    this.col.find({}).toArray(function (err: MongoError, result: any) {
-      if (err) cb(err);
-      console.log("Found the following records");
-      cb(null, result);
+      return result;
     });
   }
 }

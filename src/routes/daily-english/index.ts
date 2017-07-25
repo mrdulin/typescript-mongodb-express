@@ -14,10 +14,10 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 router.use('/sentence', sentenceRoute);
 
-router.get('/', (req, res) => {
-  res.locals.sentence.all((err: MongoError, sentences: any) => {
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.locals.sentence.all().then((sentences: any) => {
     res.render('daily-english/index', { sentences });
-  });
+  }).catch((err: MongoError) => next(err));
 });
 
 export default router;

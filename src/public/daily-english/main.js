@@ -13,7 +13,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXhr) {
         if (data.redirectUrl) {
-          console.log('删除成功')
+          console.log(data.msg);
           window.location.href = data.redirectUrl;
         }
       }
