@@ -2,18 +2,19 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
   <title>Daily English</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
   <form action="/daily-english/sentence/create" method='post'>
     <label>
-            英文：<textarea name="enText" placeholder="英文原文" cols="30" rows="10"></textarea>
-        </label>
+      英文：<textarea name="enText" placeholder="英文原文" cols="30" rows="10"></textarea>
+    </label>
     <label>
-            中文：<textarea name="cnText" placeholder="中文翻译" cols="30" rows="10"></textarea>
-        </label>
+      中文：<textarea name="cnText" placeholder="中文翻译" cols="30" rows="10"></textarea>
+    </label>
     <button type='submit'>提交</button>
   </form>
 
@@ -30,12 +31,12 @@
         <p>
           <%= sentences[i].cnText %>
         </p>
-        <button class='del-button' type='button' data-id=<%=s entences[i]._id %>>del</button>
+        <button class='del-button' type='button' data-id=<%=sentences[i]._id %>>del</button>
       </li>
       <% } %>
   </ul>
-  <script src="/bower_components/jquery/dist/jquery.js"></script>
-  <script src="/daily-english/main.js"></script>
+  <script src="/lib/jquery/dist/jquery.js"></script>
+  <script src="/app/daily-english/main.js"></script>
 </body>
 
 </html>

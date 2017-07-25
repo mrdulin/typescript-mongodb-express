@@ -1,22 +1,22 @@
-$(function() {
-    var url = 'http://localhost:3000';
-    var $dels = $('.del-button');
+$(function () {
 
-    $dels.on('click', function() {
-        var id = this.dataset.id;
+  var $dels = $('.del-button');
 
-        $.ajax(url + '/daily-english/sentence/remove', {
-            type: 'post',
-            data: {id: id},
-            error: function(jqXHR, textStatus) {
+  $dels.on('click', function () {
+    var id = this.dataset.id;
 
-            },
-            success: function(data, textStatus, jqXhr) {
-                if(data.redirectUrl) {
-                    alert(data.msg);
-                    window.location.href = data.redirectUrl;
-                }
-            }
-        })
-    });
+    $.ajax('/daily-english/sentence/remove', {
+      type: 'post',
+      data: { id: id },
+      error: function (jqXHR, textStatus, error) {
+        console.log('删除失败, %s', error);
+      },
+      success: function (data, textStatus, jqXhr) {
+        if (data.redirectUrl) {
+          console.log('删除成功')
+          window.location.href = data.redirectUrl;
+        }
+      }
+    })
+  });
 })

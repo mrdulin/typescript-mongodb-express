@@ -26,7 +26,7 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
-
+      models: path.resolve(__dirname, 'src/models')
     }
   },
   plugins: [

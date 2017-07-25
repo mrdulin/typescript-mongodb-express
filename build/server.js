@@ -478,6 +478,7 @@ var seed_1 = __webpack_require__(/*! ./routes/seed */ 23);
 var pro_express_1 = __webpack_require__(/*! ./routes/pro-express */ 26);
 var pagination_1 = __webpack_require__(/*! ./routes/pagination */ 27);
 var guest_book_1 = __webpack_require__(/*! ./routes/guest-book */ 30);
+var daily_english_1 = __webpack_require__(/*! ./routes/daily-english */ 33);
 var setupRoutes = function (app) {
     app.get('/', function (req, res) {
         res.render('index');
@@ -487,6 +488,7 @@ var setupRoutes = function (app) {
     app.use('/pro-express', pro_express_1.default);
     app.use('/pagination', pagination_1.default);
     app.use('/guest-book', guest_book_1.default);
+    app.use('/daily-english', daily_english_1.default);
     app.use(function errorHandler(err, req, res, next) {
         res.status(err.status || 500);
         if (app.get('env') !== 'production') {
@@ -940,6 +942,146 @@ exports.default = new Database(mongodb_1.MongoClient);
 /***/ (function(module, exports) {
 
 module.exports = require("mongodb");
+
+/***/ }),
+/* 33 */
+/*!*******************************************!*\
+  !*** ./src/routes/daily-english/index.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = __webpack_require__(/*! express */ 0);
+var Sentence_1 = __webpack_require__(/*! ../../models/daily-english/Sentence */ 36);
+var sentence_1 = __webpack_require__(/*! ./sentence */ 37);
+var router = express.Router();
+router.use(function (req, res, next) {
+    var db = res.locals.db;
+    res.locals.sentence = new Sentence_1.default(db);
+    next();
+});
+router.use('/sentence', sentence_1.default);
+router.get('/', function (req, res) {
+    res.locals.sentence.all(function (err, sentences) {
+        res.render('daily-english/index', { sentences: sentences });
+    });
+});
+exports.default = router;
+
+
+/***/ }),
+/* 34 */,
+/* 35 */,
+/* 36 */
+/*!**********************************************!*\
+  !*** ./src/models/daily-english/Sentence.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var mongodb_1 = __webpack_require__(/*! mongodb */ 32);
+var Sentence = (function () {
+    function Sentence(db) {
+        this.db = db;
+        this.db = db;
+        this.col = this.db.collection('sentence');
+    }
+    Sentence.prototype.create = function (data) {
+        return this.col.insertOne(data)
+            .then(function (result) {
+            console.log('Insert a document into the collection');
+            return result;
+        });
+    };
+    Sentence.prototype.remove = function (id, cb) {
+        this.col.deleteOne({ _id: new mongodb_1.ObjectID(id) }, function (err, result) {
+            if (err)
+                cb(err);
+            console.log('Delete a document from the collection');
+            cb(null, result);
+        });
+    };
+    Sentence.prototype.deleteAll = function (cb) {
+        this.col.deleteMany({}, function (err, result) {
+            if (err)
+                cb(err);
+            console.log('Delete all documents from the collection');
+            cb(null, result);
+        });
+    };
+    Sentence.prototype.query = function (query, cb) {
+        this.col.find(query, function (err, result) {
+            if (err)
+                cb(err);
+            console.log("Found the following records");
+            cb(null, result);
+        });
+    };
+    Sentence.prototype.all = function (cb) {
+        this.col.find({}).toArray(function (err, result) {
+            if (err)
+                cb(err);
+            console.log("Found the following records");
+            cb(null, result);
+        });
+    };
+    return Sentence;
+}());
+exports.default = Sentence;
+
+
+/***/ }),
+/* 37 */
+/*!**********************************************!*\
+  !*** ./src/routes/daily-english/sentence.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = __webpack_require__(/*! express */ 0);
+var router = express.Router();
+router
+    .post('/create', function (req, res, next) {
+    var _a = req.body, enText = _a.enText, cnText = _a.cnText;
+    res.locals.sentence.create({ enText: enText, cnText: cnText })
+        .then(function (result) {
+        console.log('create result', result);
+        res.redirect('/daily-english');
+    })
+        .catch(function (err) { return next(err); });
+})
+    .post('/remove', function (req, res, next) {
+    var id = req.body.id;
+    res.locals.sentence.remove(id, function (err, result) {
+        if (err)
+            next(err);
+        res.status(200).json({
+            redirectUrl: req.get('referer'),
+            msg: '删除成功'
+        });
+    });
+})
+    .post('/deleteAll', function (req, res, next) {
+    res.locals.sentence.deleteAll(function (err, result) {
+        if (err)
+            next(err);
+        res.redirect('/daily-english');
+    });
+});
+exports.default = router;
+
 
 /***/ })
 /******/ ]);

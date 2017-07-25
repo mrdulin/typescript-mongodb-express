@@ -4,6 +4,7 @@ import seed from './routes/seed';
 import proExpress from './routes/pro-express';
 import pagination from './routes/pagination';
 import guestBook from './routes/guest-book';
+import dailyEnglish from './routes/daily-english';
 
 const setupRoutes = (app: Application) => {
 
@@ -16,6 +17,7 @@ const setupRoutes = (app: Application) => {
   app.use('/pro-express', proExpress);
   app.use('/pagination', pagination);
   app.use('/guest-book', guestBook);
+  app.use('/daily-english', dailyEnglish);
   // -- app routes end --
 
   app.use(function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
