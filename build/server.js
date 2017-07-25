@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -76,6 +76,17 @@ module.exports = require("express");
 
 /***/ }),
 /* 1 */
+/*!**************************!*\
+  !*** external "mongodb" ***!
+  \**************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("mongodb");
+
+/***/ }),
+/* 2 */
 /*!***********************!*\
   !*** ./src/server.ts ***!
   \***********************/
@@ -87,10 +98,10 @@ module.exports = require("express");
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
-var http = __webpack_require__(/*! http */ 2);
-var environment_1 = __webpack_require__(/*! ./environment */ 3);
-var routes_1 = __webpack_require__(/*! ./routes */ 19);
-var db_1 = __webpack_require__(/*! ./db */ 31);
+var http = __webpack_require__(/*! http */ 3);
+var environment_1 = __webpack_require__(/*! ./environment */ 4);
+var routes_1 = __webpack_require__(/*! ./routes */ 20);
+var db_1 = __webpack_require__(/*! ./db */ 35);
 global.__base = __dirname + '/';
 var app = express();
 environment_1.default(app, express);
@@ -141,7 +152,7 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /*!***********************!*\
   !*** external "http" ***!
   \***********************/
@@ -152,7 +163,7 @@ function onListening() {
 module.exports = require("http");
 
 /***/ }),
-/* 3 */
+/* 4 */
 /*!****************************!*\
   !*** ./src/environment.ts ***!
   \****************************/
@@ -163,15 +174,15 @@ module.exports = require("http");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var path = __webpack_require__(/*! path */ 4);
-var Ejs = __webpack_require__(/*! ejs */ 5);
-var morgan = __webpack_require__(/*! morgan */ 6);
-var normalizePort_1 = __webpack_require__(/*! ./utils/normalizePort */ 7);
-var cookieParser = __webpack_require__(/*! cookie-parser */ 8);
-var bodyParser = __webpack_require__(/*! body-parser */ 9);
-var favicon = __webpack_require__(/*! serve-favicon */ 10);
-var middlewares_1 = __webpack_require__(/*! ./middlewares */ 11);
-var pkg = __webpack_require__(/*! ../package.json */ 18);
+var path = __webpack_require__(/*! path */ 5);
+var Ejs = __webpack_require__(/*! ejs */ 6);
+var morgan = __webpack_require__(/*! morgan */ 7);
+var normalizePort_1 = __webpack_require__(/*! ./helpers/normalizePort */ 8);
+var cookieParser = __webpack_require__(/*! cookie-parser */ 9);
+var bodyParser = __webpack_require__(/*! body-parser */ 10);
+var favicon = __webpack_require__(/*! serve-favicon */ 11);
+var middlewares_1 = __webpack_require__(/*! ./middlewares */ 12);
+var pkg = __webpack_require__(/*! ../package.json */ 19);
 var DEFAULT_PORT = '2222';
 var setupEnvironment = function (app, express) {
     var staticDir = path.resolve(process.cwd(), 'build/public');
@@ -204,7 +215,7 @@ exports.default = setupEnvironment;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /*!***********************!*\
   !*** external "path" ***!
   \***********************/
@@ -215,7 +226,7 @@ exports.default = setupEnvironment;
 module.exports = require("path");
 
 /***/ }),
-/* 5 */
+/* 6 */
 /*!**********************!*\
   !*** external "ejs" ***!
   \**********************/
@@ -226,7 +237,7 @@ module.exports = require("path");
 module.exports = require("ejs");
 
 /***/ }),
-/* 6 */
+/* 7 */
 /*!*************************!*\
   !*** external "morgan" ***!
   \*************************/
@@ -237,10 +248,10 @@ module.exports = require("ejs");
 module.exports = require("morgan");
 
 /***/ }),
-/* 7 */
-/*!************************************!*\
-  !*** ./src/utils/normalizePort.ts ***!
-  \************************************/
+/* 8 */
+/*!**************************************!*\
+  !*** ./src/helpers/normalizePort.ts ***!
+  \**************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -262,7 +273,7 @@ exports.default = normalizePort;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /*!********************************!*\
   !*** external "cookie-parser" ***!
   \********************************/
@@ -273,7 +284,7 @@ exports.default = normalizePort;
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 9 */
+/* 10 */
 /*!******************************!*\
   !*** external "body-parser" ***!
   \******************************/
@@ -284,7 +295,7 @@ module.exports = require("cookie-parser");
 module.exports = require("body-parser");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /*!********************************!*\
   !*** external "serve-favicon" ***!
   \********************************/
@@ -295,7 +306,7 @@ module.exports = require("body-parser");
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /*!**********************************!*\
   !*** ./src/middlewares/index.ts ***!
   \**********************************/
@@ -306,10 +317,10 @@ module.exports = require("serve-favicon");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var date_1 = __webpack_require__(/*! ./date */ 12);
-var pagination_1 = __webpack_require__(/*! ./pagination */ 13);
-var script_1 = __webpack_require__(/*! ./script */ 16);
-var link_1 = __webpack_require__(/*! ./link */ 17);
+var date_1 = __webpack_require__(/*! ./date */ 13);
+var pagination_1 = __webpack_require__(/*! ./pagination */ 14);
+var script_1 = __webpack_require__(/*! ./script */ 17);
+var link_1 = __webpack_require__(/*! ./link */ 18);
 function helpers(name) {
     return function (req, res, next) {
         res.locals.appName = name || 'App';
@@ -327,7 +338,7 @@ exports.default = helpers;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /*!*********************************!*\
   !*** ./src/middlewares/date.ts ***!
   \*********************************/
@@ -356,7 +367,7 @@ exports.formatDatetime = formatDatetime;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /*!***************************************!*\
   !*** ./src/middlewares/pagination.ts ***!
   \***************************************/
@@ -367,8 +378,8 @@ exports.formatDatetime = formatDatetime;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var url = __webpack_require__(/*! url */ 14);
-var qs = __webpack_require__(/*! querystring */ 15);
+var url = __webpack_require__(/*! url */ 15);
+var qs = __webpack_require__(/*! querystring */ 16);
 function createPagination(req) {
     return function (pages, page) {
         var params = qs.parse(url.parse(req.url).query);
@@ -388,7 +399,7 @@ exports.createPagination = createPagination;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /*!**********************!*\
   !*** external "url" ***!
   \**********************/
@@ -399,7 +410,7 @@ exports.createPagination = createPagination;
 module.exports = require("url");
 
 /***/ }),
-/* 15 */
+/* 16 */
 /*!******************************!*\
   !*** external "querystring" ***!
   \******************************/
@@ -410,7 +421,7 @@ module.exports = require("url");
 module.exports = require("querystring");
 
 /***/ }),
-/* 16 */
+/* 17 */
 /*!***********************************!*\
   !*** ./src/middlewares/script.ts ***!
   \***********************************/
@@ -428,7 +439,7 @@ exports.stripScript = stripScript;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /*!*********************************!*\
   !*** ./src/middlewares/link.ts ***!
   \*********************************/
@@ -451,7 +462,7 @@ exports.isActive = isActive;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /*!**********************!*\
   !*** ./package.json ***!
   \**********************/
@@ -462,7 +473,7 @@ exports.isActive = isActive;
 module.exports = {"name":"typescript-mongodb-express","version":"1.0.0","description":"typescript mongodb express node starter","main":"index.js","scripts":{"build":"rm -rf build && webpack -w --progress","start":"npm run build && nodemon ./build/server.js"},"keywords":["typescript","mongodb","mongoose","express","nodejs"],"author":"","license":"ISC","dependencies":{"bcrypt-nodejs":"0.0.3","body-parser":"^1.15.0","bootstrap":"^3.3.7","connect-flash":"^0.1.1","cookie-parser":"^1.4.3","ejs":"^2.4.1","express":"^4.15.3","express-session":"^1.13.0","forecastio":"^1.0.2","jquery":"^3.2.1","mongodb":"^2.2.11","mongoose":"^4.4.11","morgan":"^1.7.0","passport":"^0.3.2","passport-local":"^1.0.0","serve-favicon":"~2.3.0","validator":"^6.1.0","zippity-do-dah":"^0.0.3"},"devDependencies":{"@types/body-parser":"^1.16.4","@types/chance":"^0.7.33","@types/cookie-parser":"^1.3.30","@types/copy-webpack-plugin":"^4.0.0","@types/ejs":"^2.3.33","@types/express":"^4.0.36","@types/mongodb":"^2.2.7","@types/morgan":"^1.7.32","@types/node":"^8.0.14","@types/serve-favicon":"^2.2.28","@types/webpack":"^3.0.5","chance":"^1.0.10","copy-webpack-plugin":"^4.0.1","nodemon":"^1.11.0","ts-loader":"^2.3.1","ts-node":"^3.2.1","tslint":"^5.5.0","typescript":"^2.4.2","webpack":"^3.3.0","webpack-node-externals":"^1.6.0"}}
 
 /***/ }),
-/* 19 */
+/* 20 */
 /*!***********************!*\
   !*** ./src/routes.ts ***!
   \***********************/
@@ -473,12 +484,13 @@ module.exports = {"name":"typescript-mongodb-express","version":"1.0.0","descrip
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var zipcode_forecast_1 = __webpack_require__(/*! ./routes/zipcode-forecast */ 20);
-var seed_1 = __webpack_require__(/*! ./routes/seed */ 23);
-var pro_express_1 = __webpack_require__(/*! ./routes/pro-express */ 26);
-var pagination_1 = __webpack_require__(/*! ./routes/pagination */ 27);
-var guest_book_1 = __webpack_require__(/*! ./routes/guest-book */ 30);
-var daily_english_1 = __webpack_require__(/*! ./routes/daily-english */ 33);
+var zipcode_forecast_1 = __webpack_require__(/*! ./routes/zipcode-forecast */ 21);
+var seed_1 = __webpack_require__(/*! ./routes/seed */ 24);
+var pro_express_1 = __webpack_require__(/*! ./routes/pro-express */ 27);
+var pagination_1 = __webpack_require__(/*! ./routes/pagination */ 28);
+var guest_book_1 = __webpack_require__(/*! ./routes/guest-book */ 31);
+var daily_english_1 = __webpack_require__(/*! ./routes/daily-english */ 32);
+var static_file_1 = __webpack_require__(/*! ./routes/static-file */ 36);
 var setupRoutes = function (app) {
     app.get('/', function (req, res) {
         res.render('index');
@@ -489,6 +501,7 @@ var setupRoutes = function (app) {
     app.use('/pagination', pagination_1.default);
     app.use('/guest-book', guest_book_1.default);
     app.use('/daily-english', daily_english_1.default);
+    app.use('/static-file', static_file_1.default);
     app.use(function errorHandler(err, req, res, next) {
         res.status(err.status || 500);
         if (app.get('env') !== 'production') {
@@ -504,7 +517,7 @@ exports.default = setupRoutes;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /*!**********************************************!*\
   !*** ./src/routes/zipcode-forecast/index.ts ***!
   \**********************************************/
@@ -516,8 +529,8 @@ exports.default = setupRoutes;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
-var ForecastIo = __webpack_require__(/*! forecastio */ 21);
-var zipdb = __webpack_require__(/*! zippity-do-dah */ 22);
+var ForecastIo = __webpack_require__(/*! forecastio */ 22);
+var zipdb = __webpack_require__(/*! zippity-do-dah */ 23);
 var router = express.Router();
 var apiKey = '3df89f5a467bec0e45f61829971072b2';
 var forecastIo = new ForecastIo(apiKey, {
@@ -556,7 +569,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /*!*****************************!*\
   !*** external "forecastio" ***!
   \*****************************/
@@ -567,7 +580,7 @@ exports.default = router;
 module.exports = require("forecastio");
 
 /***/ }),
-/* 22 */
+/* 23 */
 /*!*********************************!*\
   !*** external "zippity-do-dah" ***!
   \*********************************/
@@ -578,7 +591,7 @@ module.exports = require("forecastio");
 module.exports = require("zippity-do-dah");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /*!**********************************!*\
   !*** ./src/routes/seed/index.ts ***!
   \**********************************/
@@ -590,8 +603,8 @@ module.exports = require("zippity-do-dah");
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
-var users_v1_1 = __webpack_require__(/*! ./users-v1 */ 24);
-var users_v2_1 = __webpack_require__(/*! ./users-v2 */ 25);
+var users_v1_1 = __webpack_require__(/*! ./users-v1 */ 25);
+var users_v2_1 = __webpack_require__(/*! ./users-v2 */ 26);
 var router = express.Router();
 function sum(arr) {
     var result = 0;
@@ -614,7 +627,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /*!*************************************!*\
   !*** ./src/routes/seed/users-v1.ts ***!
   \*************************************/
@@ -634,7 +647,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /*!*************************************!*\
   !*** ./src/routes/seed/users-v2.ts ***!
   \*************************************/
@@ -654,7 +667,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /*!*****************************************!*\
   !*** ./src/routes/pro-express/index.ts ***!
   \*****************************************/
@@ -703,7 +716,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /*!****************************************!*\
   !*** ./src/routes/pagination/index.ts ***!
   \****************************************/
@@ -716,7 +729,7 @@ exports.default = router;
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
 var router = express.Router();
-var students_1 = __webpack_require__(/*! ../../models/pagination/students */ 28);
+var students_1 = __webpack_require__(/*! ../../models/pagination/students */ 29);
 router
     .get('/', function (req, res, next) {
     var db = res.locals.db;
@@ -770,7 +783,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /*!*******************************************!*\
   !*** ./src/models/pagination/students.ts ***!
   \*******************************************/
@@ -781,7 +794,7 @@ exports.default = router;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Chance = __webpack_require__(/*! chance */ 29);
+var Chance = __webpack_require__(/*! chance */ 30);
 var chance = new Chance();
 var Students = (function () {
     function Students(db) {
@@ -833,7 +846,7 @@ exports.default = Students;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /*!*************************!*\
   !*** external "chance" ***!
   \*************************/
@@ -844,7 +857,7 @@ exports.default = Students;
 module.exports = require("chance");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /*!****************************************!*\
   !*** ./src/routes/guest-book/index.ts ***!
   \****************************************/
@@ -884,67 +897,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 31 */
-/*!*******************!*\
-  !*** ./src/db.ts ***!
-  \*******************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var mongodb_1 = __webpack_require__(/*! mongodb */ 32);
-var Database = (function () {
-    function Database(mongoClient) {
-        this.mongoClient = mongoClient;
-        if (Database.instance) {
-            return Database.instance;
-        }
-        Database.instance = this;
-    }
-    Database.prototype.connect = function (done) {
-        var _this = this;
-        if (this.db)
-            return done(null, this.db);
-        this.mongoClient.connect(Database.url, function (err, db) {
-            if (err)
-                return done(err);
-            console.log("Connected successfully to server");
-            _this.db = db;
-            done(null, db);
-        });
-    };
-    Database.prototype.close = function (done) {
-        if (this.db) {
-            this.db.close(function (err, result) {
-                done(err);
-            });
-        }
-    };
-    Database.prototype.get = function () {
-        return this.db;
-    };
-    Database.url = 'mongodb://localhost:27017/typescript-mongodb-express';
-    return Database;
-}());
-exports.default = new Database(mongodb_1.MongoClient);
-
-
-/***/ }),
 /* 32 */
-/*!**************************!*\
-  !*** external "mongodb" ***!
-  \**************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = require("mongodb");
-
-/***/ }),
-/* 33 */
 /*!*******************************************!*\
   !*** ./src/routes/daily-english/index.ts ***!
   \*******************************************/
@@ -956,8 +909,8 @@ module.exports = require("mongodb");
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = __webpack_require__(/*! express */ 0);
-var Sentence_1 = __webpack_require__(/*! ../../models/daily-english/Sentence */ 36);
-var sentence_1 = __webpack_require__(/*! ./sentence */ 37);
+var Sentence_1 = __webpack_require__(/*! ../../models/daily-english/Sentence */ 33);
+var sentence_1 = __webpack_require__(/*! ./sentence */ 34);
 var router = express.Router();
 router.use(function (req, res, next) {
     var db = res.locals.db;
@@ -974,9 +927,7 @@ exports.default = router;
 
 
 /***/ }),
-/* 34 */,
-/* 35 */,
-/* 36 */
+/* 33 */
 /*!**********************************************!*\
   !*** ./src/models/daily-english/Sentence.ts ***!
   \**********************************************/
@@ -987,7 +938,7 @@ exports.default = router;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongodb_1 = __webpack_require__(/*! mongodb */ 32);
+var mongodb_1 = __webpack_require__(/*! mongodb */ 1);
 var Sentence = (function () {
     function Sentence(db) {
         this.db = db;
@@ -1025,7 +976,7 @@ exports.default = Sentence;
 
 
 /***/ }),
-/* 37 */
+/* 34 */
 /*!**********************************************!*\
   !*** ./src/routes/daily-english/sentence.ts ***!
   \**********************************************/
@@ -1062,6 +1013,105 @@ router
         res.redirect('/daily-english');
     }).catch(function (err) { return next(err); });
 });
+exports.default = router;
+
+
+/***/ }),
+/* 35 */
+/*!*******************!*\
+  !*** ./src/db.ts ***!
+  \*******************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var mongodb_1 = __webpack_require__(/*! mongodb */ 1);
+var Database = (function () {
+    function Database(mongoClient) {
+        this.mongoClient = mongoClient;
+        if (Database.instance) {
+            return Database.instance;
+        }
+        Database.instance = this;
+    }
+    Database.prototype.connect = function (done) {
+        var _this = this;
+        if (this.db)
+            return done(null, this.db);
+        this.mongoClient.connect(Database.url, function (err, db) {
+            if (err)
+                return done(err);
+            console.log("Connected successfully to server");
+            _this.db = db;
+            done(null, db);
+        });
+    };
+    Database.prototype.close = function (done) {
+        if (this.db) {
+            this.db.close(function (err, result) {
+                done(err);
+            });
+        }
+    };
+    Database.prototype.get = function () {
+        return this.db;
+    };
+    Database.url = 'mongodb://localhost:27017/typescript-mongodb-express';
+    return Database;
+}());
+exports.default = new Database(mongodb_1.MongoClient);
+
+
+/***/ }),
+/* 36 */
+/*!*****************************************!*\
+  !*** ./src/routes/static-file/index.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = __webpack_require__(/*! express */ 0);
+var path = __webpack_require__(/*! path */ 5);
+var router = express.Router();
+router.use(logger);
+router
+    .get('/', function (req, res) {
+    res.render('./static-file/index');
+})
+    .get('/queryFile', function (req, res) {
+    var root = path.resolve(process.cwd(), 'build/public/static-file/');
+    console.log(root);
+    var options = {
+        root: root,
+        dotfiles: 'deny',
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    };
+    var fileName = req.query.name;
+    res.sendFile(fileName, options, function (err) {
+        if (err) {
+            console.log(err);
+            res.status(err.status).end();
+        }
+        else {
+            console.log('Sent:', fileName);
+        }
+    });
+});
+function logger(req, res, next) {
+    console.log('Request IP: ' + req.ip);
+    console.log('Request date: ' + new Date());
+    next();
+}
 exports.default = router;
 
 

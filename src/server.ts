@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as core from "express-serve-static-core";
 import * as http from 'http';
-import { Port } from './utils/normalizePort';
+import { Port } from './helpers/normalizePort';
 import setupEnvironment from './environment';
 import setupRoutes from './routes';
 import database from './db';

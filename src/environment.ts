@@ -2,7 +2,7 @@ import { Application } from "express-serve-static-core";
 import * as path from 'path';
 import * as Ejs from 'ejs';
 import * as morgan from 'morgan';
-import normalizePort, { Port } from './utils/normalizePort';
+import normalizePort, { Port } from './helpers/normalizePort';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as favicon from 'serve-favicon';
