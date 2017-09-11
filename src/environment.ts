@@ -8,8 +8,7 @@ import * as bodyParser from 'body-parser';
 import * as favicon from 'serve-favicon';
 import viewHelperMiddleware from './middlewares';
 const pkg = require('../package.json');
-
-const DEFAULT_PORT: string = '2222';
+import { config } from './config';
 
 const setupEnvironment = (app: Application, express: any) => {
 
@@ -17,12 +16,16 @@ const setupEnvironment = (app: Application, express: any) => {
   const libDir: string = path.resolve(process.cwd(), 'node_modules');
   const viewsDir: string = path.resolve(process.cwd(), 'build/views');
   const uploadDir: string = path.resolve(process.cwd(), './upload');
-  const port: Port = normalizePort(process.env.PORT || DEFAULT_PORT);
+  const port: Port = normalizePort(process.env.PORT || config.DEFAULT_PORT);
 
   // -- for guest-book testing --
   const entries: any[] = [];
   app.locals.entries = entries;
   // -- --
+
+  app.locals.contants = {
+    appVersion: pkg.version
+  };
 
   app.use(favicon(path.resolve(process.cwd(), 'build/public/favicon.jpeg')));
   app.use('/app', express.static(staticDir));
@@ -35,16 +38,11 @@ const setupEnvironment = (app: Application, express: any) => {
   app.use(morgan('dev'));
   app.use(viewHelperMiddleware(pkg.name));
 
-  app.locals.contants = {
-    appVersion: pkg.version
-  };
-
   app.set('port', port);
   app.set('views', viewsDir);
   app.set('upload', uploadDir);
   app.set('view engine', 'ejs');
   app.engine('ejs', Ejs.renderFile);
-
 
 };
 

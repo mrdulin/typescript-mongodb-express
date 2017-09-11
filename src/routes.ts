@@ -6,6 +6,7 @@ import pagination from './routes/pagination';
 import guestBook from './routes/guest-book';
 import dailyEnglish from './routes/daily-english';
 import staticFile from './routes/static-file';
+import { uploadRoute } from './routes/upload';
 
 const setupRoutes = (app: Application) => {
 
@@ -20,6 +21,8 @@ const setupRoutes = (app: Application) => {
   app.use('/guest-book', guestBook);
   app.use('/daily-english', dailyEnglish);
   app.use('/static-file', staticFile);
+  app.use('/upload', uploadRoute(app));
+
   // -- app routes end --
 
   app.use(function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
