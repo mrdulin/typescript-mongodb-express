@@ -7,7 +7,6 @@ import setupRoutes from './routes';
 import database from './db';
 import { MongoError, Db } from 'mongodb';
 
-global.__base = __dirname + '/';
 const app: core.Express = express();
 setupEnvironment(app, express);
 
@@ -16,12 +15,11 @@ const server: http.Server = http.createServer(app);
 
 database.connect((err: MongoError, db: Db) => {
   if (err) {
-    console.log('Unable to connect to Mongo.');
+    console.log('连接数据库失败.');
     process.exit(1);
   }
 
   app.use((req: core.Request, res: core.Response, next: core.NextFunction) => {
-    // console.log('db', db);
     res.locals.db = db;
     next();
   });
@@ -42,14 +40,13 @@ function onError(error: any) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(bind + ' 需要权限');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(bind + ' 端口被占用');
       process.exit(1);
       break;
     default:
@@ -62,5 +59,5 @@ function onListening() {
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  console.log('Listening on ' + bind);
+  console.log('服务器已启动，监听端口： ' + bind);
 }

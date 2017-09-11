@@ -7,17 +7,9 @@
     "build": "rm -rf build && webpack -w --progress",
     "start": "npm run build && nodemon ./build/server.js"
   },
-  "keywords": [
-    "typescript",
-    "mongodb",
-    "mongoose",
-    "express",
-    "nodejs"
-  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
     "bootstrap": "^3.3.7",
     "connect-flash": "^0.1.1",
@@ -28,12 +20,8 @@
     "forecastio": "^1.0.2",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.11",
-    "mongoose": "^4.4.11",
     "morgan": "^1.7.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0",
-    "validator": "^6.1.0",
     "zippity-do-dah": "^0.0.3"
   },
   "devDependencies": {

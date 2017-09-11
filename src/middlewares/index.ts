@@ -3,7 +3,7 @@ import { formatDate, formatDatetime } from './date';
 import { createPagination } from './pagination';
 import { stripScript } from './script';
 import { isActive } from './link';
-import { Request, Response, NextFunction } from "express-serve-static-core";
+import { Request, Response, NextFunction } from "express";
 
 /**
  * Helpers method

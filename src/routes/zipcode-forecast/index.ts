@@ -1,11 +1,12 @@
 import * as express from 'express';
 import * as core from "express-serve-static-core";
+import { config } from '../../config';
 const ForecastIo = require('forecastio');
 const zipdb = require('zippity-do-dah');
 
 const router: core.Router = express.Router();
-const apiKey: string = '3df89f5a467bec0e45f61829971072b2';
-const forecastIo = new ForecastIo(apiKey, {
+
+const forecastIo = new ForecastIo(config.forecastio_key, {
   timeout: 10 * 1000
 });
 
@@ -16,9 +17,7 @@ router
   .get('/', (req: core.Request, res: core.Response) => {
     const date: string = res.locals.formatDate('2017-07-23');
     console.log(res.locals.formatDate);
-    res.render('./zipcode-forecast', {
-      date
-    });
+    res.render('./zipcode-forecast', { date });
   })
 
   /**
@@ -35,17 +34,16 @@ router
       return;
     }
 
-    const latitude = location.latitude;
-    const longitude = location.longitude;
+    const { latitude, longitude } = location;
 
-    forecastIo.forecast(latitude, longitude).then((data: any) => {
-      res.json({
-        zipcode,
-        temperature: data.currently.temperature
-      });
-    }, (err: any) => {
-      next(err);
-    });
+    forecastIo.forecast(latitude, longitude)
+      .then((data: any) => {
+        res.json({
+          zipcode,
+          temperature: data.currently.temperature
+        });
+      })
+      .catch(next);
   });
 
 export default router;

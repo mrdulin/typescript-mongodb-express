@@ -1,4 +1,4 @@
-import { Application } from "express-serve-static-core";
+import { Application } from "express";
 import * as path from 'path';
 import * as Ejs from 'ejs';
 import * as morgan from 'morgan';
@@ -12,11 +12,11 @@ const pkg = require('../package.json');
 const DEFAULT_PORT: string = '2222';
 
 const setupEnvironment = (app: Application, express: any) => {
+
   const staticDir: string = path.resolve(process.cwd(), 'build/public');
   const libDir: string = path.resolve(process.cwd(), 'node_modules');
-  // TODO: 这里使用path.resolve(__dirname, './views')，会找不到视图模板文件？
   const viewsDir: string = path.resolve(process.cwd(), 'build/views');
-  const uploadDir: string = path.resolve(process.cwd(), 'build/upload');
+  const uploadDir: string = path.resolve(process.cwd(), './upload');
   const port: Port = normalizePort(process.env.PORT || DEFAULT_PORT);
 
   // -- for guest-book testing --

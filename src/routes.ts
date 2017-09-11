@@ -1,4 +1,4 @@
-import { Application, Request, Response, NextFunction } from "express-serve-static-core";
+import { Application, Request, Response, NextFunction } from "express";
 import zipcode from './routes/zipcode-forecast';
 import seed from './routes/seed';
 import proExpress from './routes/pro-express';
