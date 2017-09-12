@@ -8,6 +8,7 @@ import flash = require('connect-flash');
 import * as session from 'express-session';
 import * as connectMongo from 'connect-mongo';
 import { Db } from 'mongodb';
+const qiniu = require('qiniu');
 
 import normalizePort, { Port } from './helpers/normalizePort';
 import viewHelperMiddleware from './middlewares';
@@ -22,6 +23,18 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
   const uploadDir: string = path.resolve(process.cwd(), './upload');
   const port: Port = normalizePort(process.env.PORT || config.DEFAULT_PORT);
 
+  const mac = new qiniu.auth.digest.Mac(config.qiniu.ak, config.qiniu.sk);
+  const options = {
+    scope: config.qiniu.bucket
+  };
+  const putPolicy = new qiniu.rs.PutPolicy(options);
+  const uploadToken = putPolicy.uploadToken(mac);
+  const uploadConf = new qiniu.conf.Config();
+  uploadConf.zone = qiniu.zone.Zone_z0;
+  const formUploader = new qiniu.form_up.FormUploader(uploadConf);
+  const putExtra = new qiniu.form_up.PutExtra();
+  const bucketManager = new qiniu.rs.BucketManager(mac, uploadConf);
+
   // -- for guest-book testing --
   const entries: any[] = [];
   app.locals.entries = entries;
@@ -30,9 +43,13 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
   app.locals.contants = {
     appVersion: pkg.version
   };
-  // app.locals.db = db;
-  // app.locals.io = io;
-
+  app.set('AppQiniu', {
+    uploadToken,
+    uploadConf,
+    formUploader,
+    putExtra,
+    bucketManager
+  });
   // app.set('io', io);
   app.set('db', db);
 
