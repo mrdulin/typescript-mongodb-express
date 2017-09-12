@@ -7,7 +7,7 @@ import sentenceRoute from './sentence';
 const router: Router = express.Router();
 
 router.use((req: Request, res: Response, next: NextFunction) => {
-  const db: Db = res.locals.db;
+  const db: Db = res.app.locals.db;
   res.locals.sentence = new Sentence(db);
   next();
 });

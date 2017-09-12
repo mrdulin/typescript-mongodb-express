@@ -10,7 +10,7 @@ router
    * mock数据分页测试
    */
   .get('/', function (req: Request, res: Response, next: NextFunction) {
-    const db: Db = res.locals.db;
+    const db: Db = res.app.locals.db;
     console.log(db);
     const studentCollection = new StudentCollection(db);
 
@@ -59,7 +59,7 @@ router
   .get('/students', function (req: Request, res: Response, next: NextFunction) {
     const page: number = Number.parseInt(req.query.page, 10) || 1;
     const pageSize: number = Number.parseInt(req.query.pageSize, 10) || 10;
-    const db: Db = res.locals.db;
+    const db: Db = res.app.locals.db;
     const studentCollection = new StudentCollection(db);
 
     studentCollection.query(page, pageSize, function (err: MongoError | null, data: any) {

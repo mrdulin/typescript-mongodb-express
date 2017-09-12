@@ -18,15 +18,20 @@ class Database {
     Database.instance = this;
   }
 
-  public connect(done: IMongoCallback): void {
-    if (this.db) return done(null, this.db);
+  public connect(): Promise<Db | void> {
+    if (this.db) return Promise.resolve(this.db);
 
-    this.mongoClient.connect(Database.url, (err: MongoError, db: Db) => {
-      if (err) return done(err);
-      console.log("连接数据库成功。");
-      this.db = db;
-      done(null, db);
-    });
+    return this.mongoClient
+      .connect(Database.url)
+      .then((db: Db) => {
+        console.log("连接数据库成功。");
+        this.db = db;
+        return db;
+      })
+      .catch((err: MongoError) => {
+        console.log('连接数据库失败.', err.stack);
+        process.exit(1);
+      });
   }
 
   public close(done: IMongoCallback) {

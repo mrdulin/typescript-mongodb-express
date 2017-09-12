@@ -16,21 +16,19 @@ import { Request, Response, NextFunction } from "express";
 function helpers(name: string) {
   return function (req: Request, res: Response, next: NextFunction) {
 
-    res.locals.appName = name || 'App';
-    res.locals.title = name || 'App';
-    res.locals.req = req;
     res.locals.isActive = isActive;
     res.locals.formatDate = formatDate;
     res.locals.formatDatetime = formatDatetime;
     res.locals.stripScript = stripScript;
     res.locals.createPagination = createPagination(req);
 
-    // if (typeof req.flash !== 'undefined') {
-    //   res.locals.info = req.flash('info');
-    //   res.locals.errors = req.flash('error');
-    //   res.locals.success = req.flash('success');
-    //   res.locals.warning = req.flash('warning');
-    // }
+    if (typeof req.flash !== 'undefined') {
+      res.locals.info = req.flash('info');
+      res.locals.error = req.flash('error');
+      res.locals.success = req.flash('success');
+      res.locals.warning = req.flash('warning');
+
+    }
 
     next();
   };

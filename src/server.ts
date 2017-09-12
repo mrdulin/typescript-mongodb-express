@@ -1,30 +1,34 @@
 import * as express from 'express';
-import * as core from "express-serve-static-core";
+import { Request, Response, NextFunction, Application } from 'express';
 import * as http from 'http';
+// import * as socketIo from 'socket.io';
 import { Port } from './helpers/normalizePort';
 import setupEnvironment from './environment';
 import setupRoutes from './routes';
 import database from './db';
-import { MongoError, Db } from 'mongodb';
+import { Db } from 'mongodb';
 
-const app: core.Express = express();
-setupEnvironment(app, express);
+const app: Application = express();
 
 const port: Port = app.get('port');
 const server: http.Server = http.createServer(app);
+// const io: SocketIO.Server = require('socket.io')(server);
 
-database.connect((err: MongoError, db: Db) => {
-  if (err) {
-    console.log('连接数据库失败.');
-    process.exit(1);
-  }
+database.connect().then((db: Db) => {
 
-  app.use((req: core.Request, res: core.Response, next: core.NextFunction) => {
-    res.locals.db = db;
-    next();
-  });
-
+  setupEnvironment(app, express, db);
   setupRoutes(app);
+
+  app.use(function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
+    res.status(err.status || 500);
+    if (app.get('env') !== 'production') {
+      console.log(err.message + '/n' + err.status + '/n' + err.stack);
+    }
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
 
   server.listen(port);
   server.on('error', onError);
