@@ -1,8 +1,6 @@
 node_modules/
 bower_components/
 .DS_*
-.vscode/
 build/
 dist/
-config.ts
 upload/

@@ -23,6 +23,7 @@
     "mongodb": "^2.2.31",
     "morgan": "^1.7.0",
     "qiniu": "^7.0.8",
+    "request": "^2.81.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^2.0.3",
     "zippity-do-dah": "^0.0.3"
@@ -40,6 +41,7 @@
     "@types/mongodb": "^2.2.11",
     "@types/morgan": "^1.7.32",
     "@types/node": "^8.0.28",
+    "@types/request": "^2.0.3",
     "@types/serve-favicon": "^2.2.29",
     "@types/socket.io": "^1.4.30",
     "@types/webpack": "^3.0.10",

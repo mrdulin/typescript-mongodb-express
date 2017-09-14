@@ -48,7 +48,8 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
     uploadConf,
     formUploader,
     putExtra,
-    bucketManager
+    bucketManager,
+    mac
   });
   // app.set('io', io);
   app.set('db', db);
