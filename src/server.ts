@@ -1,17 +1,24 @@
 import * as express from 'express';
 import { Request, Response, NextFunction, Application } from 'express';
-import * as http from 'http';
-// import * as socketIo from 'socket.io';
+import * as https from 'https';
+import * as fs from 'fs';
+import * as path from 'path';
 import { Port } from './helpers/normalizePort';
+// import * as socketIo from 'socket.io';
 import setupEnvironment from './environment';
 import setupRoutes from './routes';
 import database from './db';
 import { Db } from 'mongodb';
 
+let port: Port;
 const app: Application = express();
+const cwd: string = process.cwd();
+const options = {
+  key: fs.readFileSync(path.resolve(cwd, './build/ssl/server.pem')),
+  cert: fs.readFileSync(path.resolve(cwd, './build/ssl/server.crt'))
+};
+const server: https.Server = https.createServer(options, app);
 
-const port: Port = app.get('port');
-const server: http.Server = http.createServer(app);
 // const io: SocketIO.Server = require('socket.io')(server);
 
 database.connect().then((db: Db) => {
@@ -29,6 +36,8 @@ database.connect().then((db: Db) => {
       error: err
     });
   });
+
+  port = app.get('port');
 
   server.listen(port);
   server.on('error', onError);

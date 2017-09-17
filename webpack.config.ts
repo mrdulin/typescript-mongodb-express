@@ -32,7 +32,8 @@ const config: webpack.Configuration = {
   plugins: [
     new CopyWebpackPlugin([
       { from: './src/views', to: 'views' },
-      { from: './src/public', to: 'public' }
+      { from: './src/public', to: 'public' },
+      { from: './src/ssl', to: 'ssl' }
     ])
   ],
   externals: [nodeExternals()]

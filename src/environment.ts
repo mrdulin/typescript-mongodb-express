@@ -17,10 +17,12 @@ import { config } from './config';
 
 const setupEnvironment = (app: Application, express: any, db: Db) => {
 
-  const staticDir: string = path.resolve(process.cwd(), 'build/public');
-  const libDir: string = path.resolve(process.cwd(), 'node_modules');
-  const viewsDir: string = path.resolve(process.cwd(), 'build/views');
-  const uploadDir: string = path.resolve(process.cwd(), './upload');
+  const cwd: string = process.cwd();
+
+  const staticDir: string = path.resolve(cwd, 'build/public');
+  const libDir: string = path.resolve(cwd, 'node_modules');
+  const viewsDir: string = path.resolve(cwd, 'build/views');
+  const uploadDir: string = path.resolve(cwd, './upload');
   const port: Port = normalizePort(process.env.PORT || config.DEFAULT_PORT);
 
   const mac = new qiniu.auth.digest.Mac(config.qiniu.ak, config.qiniu.sk);

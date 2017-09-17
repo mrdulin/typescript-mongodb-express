@@ -46,7 +46,13 @@
   <% if(datas.length){ %>
     <ul class="list-group">
       <% for (var i = 0; i < datas.length; i++) { %>
-      <li class="list-group-item"><%= datas[i].key %></li>
+      <li class="list-group-item">
+        <span><%= datas[i].key %></span>
+        <div>
+          <a>删除</a>
+          <a></a>
+        </div>
+      </li>
       <% } %>
     </ul>
   <% } %>
