@@ -9,6 +9,15 @@ const config = {
     ak: '4lsvM5G87CCvDTmyI0QO0LPC3NAVzKi61XZIgVm0',
     sk: '9TDwBIgeSxa6_SjiYbOmut1HPzsbI_WEckx2qi8D',
     bucket: 'code'
+  },
+
+  authProviders: {
+    facebook: {
+      development: {
+        appId: '790804461123167',
+        appSecret: '2b43045abb1a5f84e040ab2cc11e5843'
+      }
+    }
   }
 };
 

@@ -55,7 +55,7 @@ function onError(error: any) {
 
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' 需要权限');
+      console.error(bind + ' 需要权限，使用sudo命令');
       process.exit(1);
       break;
     case 'EADDRINUSE':

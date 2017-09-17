@@ -18,6 +18,7 @@ import { config } from './config';
 const setupEnvironment = (app: Application, express: any, db: Db) => {
 
   const cwd: string = process.cwd();
+  const env: string = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
   const staticDir: string = path.resolve(cwd, 'build/public');
   const libDir: string = path.resolve(cwd, 'node_modules');
@@ -85,6 +86,7 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
 
   app.use(morgan('dev'));
 
+  app.set('env', env);
   app.set('port', port);
   app.set('views', viewsDir);
   app.set('upload', uploadDir);

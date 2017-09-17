@@ -7,6 +7,8 @@ import guestBook from './routes/guest-book';
 import dailyEnglish from './routes/daily-english';
 import staticFile from './routes/static-file';
 import { uploadRoute } from './routes/upload';
+import { authFactory, IAuth } from './lib/auth';
+import { config } from './config';
 
 const setupRoutes = (app: Application) => {
 
@@ -14,6 +16,16 @@ const setupRoutes = (app: Application) => {
   app.get('/', (req: Request, res: Response) => {
     res.render('index');
   });
+
+  const auth: IAuth = authFactory(app, {
+    providers: config.authProviders,
+    successRedirect: '/',
+    failedRedirect: '/login'
+  });
+
+  auth.init();
+  auth.registerRoutes();
+
   app.use('/zipcode-forecast', zipcode);
   app.use('/seed', seed);
   app.use('/pro-express', proExpress);
