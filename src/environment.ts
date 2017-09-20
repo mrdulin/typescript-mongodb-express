@@ -6,6 +6,7 @@ import * as bodyParser from 'body-parser';
 import * as favicon from 'serve-favicon';
 import flash = require('connect-flash');
 import * as session from 'express-session';
+import * as passport from 'passport';
 import * as connectMongo from 'connect-mongo';
 import { Db } from 'mongodb';
 const qiniu = require('qiniu');
@@ -81,11 +82,14 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
   }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(flash());
   app.use(viewHelperMiddleware(pkg.name));
 
   app.use(morgan('dev'));
 
+  app.set('passport', passport);
   app.set('env', env);
   app.set('port', port);
   app.set('views', viewsDir);

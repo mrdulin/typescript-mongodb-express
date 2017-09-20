@@ -17,6 +17,12 @@ const config = {
         appId: '790804461123167',
         appSecret: '2b43045abb1a5f84e040ab2cc11e5843'
       }
+    },
+    github: {
+      development: {
+        clientId: '5b612cedaed429b1a806',
+        clientSecret: 'd501b1c48fa8286a6e2066fc2f7a5d3911976f47'
+      }
     }
   }
 };
