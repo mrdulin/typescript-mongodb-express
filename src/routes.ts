@@ -13,16 +13,20 @@ const setupRoutes = (app: Application) => {
   const passport = app.get('passport');
   initPassport(app, passport);
 
-  // -- app routes start --
   app.get('/', (req: Request, res: Response) => {
     if (!req.session!.passport || !req.session!.passport.user) {
       return res.redirect(303, '/login');
     }
-    res.render('index');
+    return res.render('index', { user: req.user });
   });
 
   app.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', { redirect: 'https://www.google.com' });
+  });
+  app.get('/logout', (req, res) => {
+    req.session!.destroy(() => {
+      res.redirect(303, '/');
+    });
   });
   app.use('/zipcode-forecast', zipcode);
   app.use('/seed', seed);
@@ -48,19 +52,20 @@ const setupRoutes = (app: Application) => {
 
   app.get('/auth/github', (req: Request, res: Response, next: NextFunction) => {
     const redirect: string = encodeURIComponent(req.query.redirect);
-    passport.authenticate('github', {
-      successRedirect: `/auth/github/callback?redirect=${redirect}`
-    })(req, res, next);
+    let successRedirect: string;
+    if (redirect) {
+      successRedirect = `/auth/github/callback?redirect=${redirect}`;
+    } else {
+      successRedirect = '/auth/github/callback';
+    }
+    passport.authenticate('github', { successRedirect })(req, res, next);
   });
 
   app.get('/auth/github/callback', passport.authenticate('github', {
     failureRedirect: '/login'
   }), (req: Request, res: Response) => {
-    res.redirect(303, req.query.redirect || '/');
+    res.redirect(301, req.query.redirect || '/');
   });
-
-
-  // -- app routes end --
 
 };
 

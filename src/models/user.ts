@@ -20,6 +20,13 @@ class User implements IUser, IUserMethods {
   public static db: Db;
   public static col: Collection;
 
+  public static setDb(db: Db) {
+    if (!User.db) {
+      User.db = db;
+      User.col = db.collection('users');
+    }
+  }
+
   public static create(user: IUser): Promise<any> {
     return User.col.insertOne(user)
       .then((result: InsertOneWriteOpResult) => {
@@ -28,8 +35,8 @@ class User implements IUser, IUserMethods {
       });
   }
 
-  public static findById(id: string): Promise<any> {
-    return User.col.findOne({ _id: id }).then((user: IUser) => {
+  public static findById(query: any): Promise<any> {
+    return User.col.findOne(query).then((user: IUser) => {
       return user;
     });
   }
@@ -43,9 +50,6 @@ class User implements IUser, IUserMethods {
 
   constructor(public user: IUser) {
     Object.assign(this, user);
-    if (!User.col) {
-      User.col = User.db.collection('users');
-    }
   }
 
   public save(): Promise<InsertOneWriteOpResult> {

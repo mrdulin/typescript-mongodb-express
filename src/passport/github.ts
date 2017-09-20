@@ -2,18 +2,9 @@ import { Application } from 'express';
 import { Passport } from 'passport';
 import { Strategy, Profile } from 'passport-github';
 import { User, IUser, IUserMethods } from '../models/user';
+import { IAuthOptions, IProviders } from './';
 
-interface IProviders {
-  [key: string]: any;
-}
-
-interface IAuthOptions {
-  providers: IProviders;
-  successRedirect: string;
-  failedRedirect: string;
-}
-
-export default (app: Application, passport: Passport, opts: IAuthOptions) => {
+export default (app: Application, passport: Passport, options?: IAuthOptions) => {
 
   const defaultOptions: IAuthOptions = {
     providers: {},
@@ -21,19 +12,18 @@ export default (app: Application, passport: Passport, opts: IAuthOptions) => {
     failedRedirect: '/login'
   };
 
-  opts = Object.assign({}, defaultOptions, opts);
+  const opts: IAuthOptions = Object.assign({}, defaultOptions, options);
 
   const env: string = app.get('env');
   const providers: IProviders = opts.providers;
-  User.db = app.get('db');
 
   passport.use(new Strategy({
-    clientID: providers.github[env].clientID,
+    clientID: providers.github[env].clientId,
     clientSecret: providers.github[env].clientSecret,
     callbackURL: '/auth/github/callback'
   }, (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => {
-    const authId: string = profile.id;
-    User.findById(authId).then((user: IUser & IUserMethods) => {
+    const authId: string = 'github:' + profile.id;
+    User.findById({ authId }).then((user: IUser & IUserMethods) => {
       if (user) return done(null, user);
       user = new User({ authId, name: profile.displayName, created: Date.now(), role: 'customer' });
       user.save().then(() => {

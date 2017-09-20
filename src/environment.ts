@@ -70,7 +70,7 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
       path: '/',
       httpOnly: true,
       secure: false,
-      maxAge: 60 * 1000
+      maxAge: 30 * 1000
     },
     name: 'sid',
     resave: false,

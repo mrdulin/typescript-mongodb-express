@@ -2,12 +2,17 @@
 <html lang="en">
 
 <head>
-  <title>demos</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 
 <body>
+  <h1>Hi! <span><%= user.name%></span></h1>
+  <% if(user) { %>
+    <a href="/logout">退出登录</a>
+  <% } %>
   <ul>
     <li><a href="/zipcode-forecast">zipcode-forecase</a></li>
     <li><a href="/static-file">static-file</a></li>

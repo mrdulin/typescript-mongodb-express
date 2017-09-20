@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,17 @@
   <link rel="stylesheet" href="/lib/bootstrap-social/bootstrap-social.css">
   <title>登录</title>
 </head>
+
 <body>
   <div>
     <a href='/auth/facebook' class='btn btn-block btn-social btn-facebook'>
       <span class='fa fa-facebook'></span> 使用facebook账号登录
     </a>
+    <a href='/auth/github?redirect=<%=redirect%>' class='btn btn-block btn-social btn-github'>
+      <span class='fa fa-github'></span> 使用github账号登录
+    </a>
+
   </div>
 </body>
+
 </html>

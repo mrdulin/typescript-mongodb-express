@@ -25,6 +25,7 @@ database.connect().then((db: Db) => {
 
   setupEnvironment(app, express, db);
   setupRoutes(app);
+  port = app.get('port');
 
   app.use(function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
     res.status(err.status || 500);
@@ -36,8 +37,6 @@ database.connect().then((db: Db) => {
       error: err
     });
   });
-
-  port = app.get('port');
 
   server.listen(port);
   server.on('error', onError);

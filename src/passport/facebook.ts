@@ -2,16 +2,7 @@ import { Application } from 'express';
 import { Passport } from 'passport';
 import { Strategy, Profile } from 'passport-facebook';
 import { User, IUser, IUserMethods } from '../models/user';
-
-interface IProviders {
-  [key: string]: any;
-}
-
-interface IAuthOptions {
-  providers: IProviders;
-  successRedirect: string;
-  failedRedirect: string;
-}
+import { IAuthOptions, IProviders } from './';
 
 export default (app: Application, passport: Passport, opts: IAuthOptions) => {
 
