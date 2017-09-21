@@ -1,31 +1,28 @@
 import * as express from 'express';
 import { Request, Response, NextFunction, Application } from 'express';
 import * as https from 'https';
+import * as http from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Port } from './helpers/normalizePort';
-// import * as socketIo from 'socket.io';
 import setupEnvironment from './environment';
 import setupRoutes from './routes';
 import database from './db';
 import { Db } from 'mongodb';
 
-let port: Port;
 const app: Application = express();
 const cwd: string = process.cwd();
 const options = {
   key: fs.readFileSync(path.resolve(cwd, './build/ssl/server.pem')),
   cert: fs.readFileSync(path.resolve(cwd, './build/ssl/server.crt'))
 };
-const server: https.Server = https.createServer(options, app);
-
-// const io: SocketIO.Server = require('socket.io')(server);
+const httpsServer: https.Server = https.createServer(options, app);
+const httpServer: http.Server = http.createServer(app);
 
 database.connect().then((db: Db) => {
 
   setupEnvironment(app, express, db);
   setupRoutes(app);
-  port = app.get('port');
 
   app.use(function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
     res.status(err.status || 500);
@@ -38,12 +35,15 @@ database.connect().then((db: Db) => {
     });
   });
 
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
+  httpsServer.listen(app.get('sslPort'), 'localhost');
+  httpServer.listen(app.get('port'), 'localhost');
+  httpsServer.on('error', (e) => onError(e, app.get('sslPort')));
+  httpServer.on('error', (e) => onError(e, app.get('port')));
+  httpsServer.on('listening', () => onListening(httpsServer));
+  httpServer.on('listening', () => onListening(httpServer));
 });
 
-function onError(error: any) {
+function onError(error: any, port: Port) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -66,10 +66,7 @@ function onError(error: any) {
   }
 }
 
-function onListening() {
+function onListening(server: http.Server | https.Server) {
   const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  console.log('服务器已启动，监听端口： ' + bind);
+  console.log('服务器已启动，地址：' + addr.address + ':' + addr.port);
 }

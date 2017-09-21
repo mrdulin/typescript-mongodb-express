@@ -26,6 +26,7 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
   const viewsDir: string = path.resolve(cwd, 'build/views');
   const uploadDir: string = path.resolve(cwd, './upload');
   const port: Port = normalizePort(process.env.PORT || config.DEFAULT_PORT);
+  const sslPort: Port = normalizePort(config.DEFAULT_SSL_PORT);
 
   const mac = new qiniu.auth.digest.Mac(config.qiniu.ak, config.qiniu.sk);
   const options = {
@@ -55,7 +56,6 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
     bucketManager,
     mac
   });
-  // app.set('io', io);
   app.set('db', db);
 
   const MongoStore: connectMongo.MongoStoreFactory = connectMongo(session);
@@ -92,6 +92,7 @@ const setupEnvironment = (app: Application, express: any, db: Db) => {
   app.set('passport', passport);
   app.set('env', env);
   app.set('port', port);
+  app.set('sslPort', sslPort);
   app.set('views', viewsDir);
   app.set('upload', uploadDir);
   app.set('view engine', 'ejs');

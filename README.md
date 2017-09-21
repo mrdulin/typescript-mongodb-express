@@ -103,3 +103,5 @@ __注意：__
     8. app.locals一直存在，直到程序退出
 
 * 如果在路由中获取`app.locals`？通过`req.app.locals`, `req.app`是`app`的引用。
+
+* 当`server.listen`监听的端口号没有指定`undefined`或是`0`，每次启动服务器，将会被赋予一个随机的端口号。

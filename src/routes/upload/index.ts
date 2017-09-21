@@ -38,9 +38,6 @@ const uploadRoute = (app: Application) => {
 
   const resources: Resources = new Resources(db);
   const pageSize: number = 10;
-  // io.on('connection', (socket: SocketIO.Socket) => {
-  // socket.join('');
-  // });
 
   router.get('/', (req: Request, res: Response, next: NextFunction) => {
     const page: number = Number.parseInt(req.query.page, 10);
